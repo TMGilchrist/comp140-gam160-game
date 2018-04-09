@@ -11,19 +11,20 @@ const int SCREEN_WIDTH = 400;
 //Game loop runs while true
 bool gameRunning = true;
 
+
 int main(int argc, char *argv[])
 {
 	SDL_Window* mainWindow = nullptr;
 
-	/* initialize SDL */
+	//initialise SDL
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
 		std::cout << "Cannot initalise SDL " << SDL_GetError() << std::endl;
 		return -1;
 	}
 
+	//Initalise the main window
 	mainWindow = SDL_CreateWindow("Main Screen", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_HEIGHT, SCREEN_WIDTH, SDL_WINDOW_SHOWN);
-
 	if (mainWindow == nullptr) 
 	{
 		std::cout << "Cannot create window " << SDL_GetError() << std::endl;
@@ -31,14 +32,17 @@ int main(int argc, char *argv[])
 		return -1;
 	}
 
-	//load bitmap to temp surface
-	//SDL_Surface* temp = SDL_LoadBMP("sdl_logo.bmp");
+	//Initalise renderer
+	SDL_Renderer* renderer = SDL_CreateRenderer(mainWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_TARGETTEXTURE);
 
-	// convert bitmap to display format
-	//SDL_Surface* bg = SDL_DisplayFormat(temp);
+	//Load sprite to texture
+	SDL_Surface* temp = SDL_LoadBMP("../Resources/Sprites/TestSpriteBit.bmp");	
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, temp);
+	SDL_FreeSurface(temp);
 
-	// free the temp surface
-	//SDL_FreeSurface(temp);
+	//SDL_SetRenderDrawColor(renderer, 255, 000, 000, 000);
+	//SDL_RenderFillRect(renderer, spriteArea);
+
 
 
 	SDL_Event event;
@@ -71,16 +75,12 @@ int main(int argc, char *argv[])
 			}
 		}
 
-		//draw the background
-		//SDL_BlitSurface(bg, NULL, screen, NULL);
-
-		//update the screen
-		//SDL_UpdateRect(screen, 0, 0, 0, 0);
-
+		//Update screen
+		SDL_RenderClear(renderer);
+		//SDL_RenderCopy(renderer, texture, NULL, NULL); //<- draws texture to screen
+		SDL_RenderPresent(renderer);
 	}
 
-	//free the background surface */
-	//SDL_FreeSurface(bg);
 
 	//Close window
 	SDL_DestroyWindow(mainWindow);

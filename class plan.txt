@@ -1,0 +1,44 @@
+ShipChair:
+
+Main
+  - SDLsetup
+  - Gameloop
+
+Object
+  - move
+  - collisionManager
+
+Object:Player
+  - input to move
+
+Object:Enemy
+  - ai to move
+
+Object:Projectile
+
+
+Weapon
+  *fireRate
+  *damage (or maybe on the projectile instead?)
+  - fire (spawn projectile with vector)
+ 
+InputManager
+  - playerInputs 
+
+CollisionManager
+  *bool collided
+  *object collidedObjected
+
+  - checkCollision
+  - raiseEvent
+
+EventManager
+  
+
+Level
+  - graphics
+  - enemies
+  - duration
+
+Useful:
+http://gameprogrammingpatterns.com/observer.html

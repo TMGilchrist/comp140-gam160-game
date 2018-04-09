@@ -7,6 +7,7 @@ Main
 Object
   - move
   - collisionManager
+  - sprite
 
 Object:Player
   - input to move
@@ -32,8 +33,8 @@ CollisionManager
   - checkCollision
   - raiseEvent
 
-EventManager
-  
+Observer
+Subject
 
 Level
   - graphics

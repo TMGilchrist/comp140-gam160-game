@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "SDL.h"
+#include "Level.h"
 
 //Screen dimensions
 const int SCREEN_HEIGHT = 600;
@@ -11,11 +12,14 @@ const int SCREEN_WIDTH = 400;
 //Game loop runs while true
 bool gameRunning = true;
 
+//The SDL renderer. Should be passed to class functions that handle their own rendering.
+SDL_Renderer* renderer = NULL;
+
+//The main game window.
+SDL_Window* mainWindow = nullptr;
 
 int main(int argc, char *argv[])
 {
-	SDL_Window* mainWindow = nullptr;
-
 	//initialise SDL
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
@@ -33,18 +37,20 @@ int main(int argc, char *argv[])
 	}
 
 	//Initalise renderer
-	SDL_Renderer* renderer = SDL_CreateRenderer(mainWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_TARGETTEXTURE);
-
-	//Load sprite to texture
-	SDL_Surface* temp = SDL_LoadBMP("../Resources/Sprites/TestSpriteBit.bmp");	
-	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, temp);
-	SDL_FreeSurface(temp);
-
-	//SDL_SetRenderDrawColor(renderer, 255, 000, 000, 000);
-	//SDL_RenderFillRect(renderer, spriteArea);
+	renderer = SDL_CreateRenderer(mainWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_TARGETTEXTURE);
+	if (renderer == NULL)
+	{
+		std:: cout << "Cannot initalise SDL" << SDL_GetError << std::endl;
+		SDL_Quit();
+		return -1;
+	}
 
 
+	//Create new level and draw background. This is temp. Will be replaced.
+	Level mainLevel = Level();
+	mainLevel.drawBackground(renderer);
 
+	//Current sdl event
 	SDL_Event event;
 
 	/*------------------------
@@ -76,8 +82,6 @@ int main(int argc, char *argv[])
 		}
 
 		//Update screen
-		SDL_RenderClear(renderer);
-		//SDL_RenderCopy(renderer, texture, NULL, NULL); //<- draws texture to screen
 		SDL_RenderPresent(renderer);
 	}
 
@@ -85,6 +89,9 @@ int main(int argc, char *argv[])
 	//Close window
 	SDL_DestroyWindow(mainWindow);
 	SDL_Quit();
+
+	mainLevel.~Level();
+
 	return 0;
 }
 

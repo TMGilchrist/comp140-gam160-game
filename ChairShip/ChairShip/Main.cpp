@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "SDL.h"
 #include "Level.h"
+#include "Object.h" //Probably temp, remove later.
 
 int initaliseSDL();
 
@@ -20,8 +21,17 @@ SDL_Renderer* renderer = NULL;
 //The main game window.
 SDL_Window* mainWindow = nullptr;
 
+//Sprite destination rectangle. Will be moved later.
+SDL_Rect destRect;
+
+
 int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they need to be here or in initaliseSDL.
 {
+	destRect.x = 0;
+	destRect.y = 0;
+	destRect.h = 67;
+	destRect.w = 67;
+
 	//Init times
 	float lastTime = 0;
 	float tickTime = 0;
@@ -35,8 +45,11 @@ int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they
 	}
 
 	//Create new level and draw background. This is temp. Will be replaced.
-	Level mainLevel = Level(renderer);
+	Level mainLevel = Level(renderer, "../Resources/Sprites/BackgroundTemp.bmp");
 	mainLevel.drawBackground(renderer);
+
+	Object shipTest = Object(renderer, "../Resources/Sprites/ShipTemp.png");
+	shipTest.drawSelf(renderer, &destRect);
 
 	//Current sdl event
 	SDL_Event event;

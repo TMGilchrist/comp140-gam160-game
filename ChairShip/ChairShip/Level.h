@@ -5,7 +5,7 @@ class Level
 {
 public:
 	Level();
-	Level(SDL_Renderer* renderer);
+	Level(SDL_Renderer* renderer, char* imagePath);
 	~Level();
 
 	void drawBackground(SDL_Renderer* renderer);
@@ -18,7 +18,6 @@ public:
 private:
 	//Background sprite
 	SDL_Texture* background;
-
 
 protected:
 

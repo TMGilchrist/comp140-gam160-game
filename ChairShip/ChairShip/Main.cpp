@@ -46,10 +46,15 @@ int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they
 
 	//Create new level and draw background. This is temp. Will be replaced.
 	Level mainLevel = Level(renderer, "../Resources/Sprites/BackgroundTemp.bmp");
-	mainLevel.drawBackground(renderer);
 
-	Object shipTest = Object(renderer, "../Resources/Sprites/ShipTemp.png");
-	shipTest.drawSelf(renderer, &destRect);
+
+	Object shipTest = Object(renderer, "../Resources/Sprites/ShipTemp.png", 67, 67);
+
+	shipTest.setX(200);
+	shipTest.setY(200);
+
+	//mainLevel.drawBackground(renderer);
+	//shipTest.drawSelf(renderer);
 
 	//Current sdl event
 	SDL_Event event;
@@ -77,17 +82,40 @@ int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they
 
 				//Escape key pressed (could change to another switch statement for more keys)
 				case SDL_KEYDOWN:
-					if (event.key.keysym.sym == SDLK_ESCAPE)
+					switch (event.key.keysym.sym)
 					{
-						gameRunning = false;
+					case SDLK_ESCAPE:
+							gameRunning = false;
+							break;
+					
+					//Movement input.
+					case SDLK_w:
+						//shipTest.move(0, -2);
+						shipTest.moveY(-2);
 						break;
+					case SDLK_a:
+						//shipTest.move(-2, 0);
+						shipTest.moveX(-2);
+						break;
+					case SDLK_s:
+						//shipTest.move(0, 2);
+						shipTest.moveY(2);
+						break;
+					case SDLK_d:
+						//shipTest.move(2, 0);
+						shipTest.moveX(2);
+						break;
+						
 					}
-
+									
 				break;
 			}
 		}
 
 		//Update screen
+		SDL_RenderClear(renderer);
+		mainLevel.drawBackground(renderer);
+		shipTest.drawSelf(renderer);
 		SDL_RenderPresent(renderer);
 	}
 

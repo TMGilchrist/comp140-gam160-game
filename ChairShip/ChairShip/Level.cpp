@@ -1,21 +1,24 @@
 #include "stdafx.h"
 #include "Level.h"
+#include "Utility.h"
 
 Level::Level()
 {
+}
+
+Level::Level(SDL_Renderer * renderer)
+{
+	Utility utility;
+	background = utility.loadTexture(renderer, "../Resources/Sprites/BackgroundTemp.bmp");
 }
 
 Level::~Level()
 {
 }
 
-void Level::drawBackground(SDL_Renderer * renderer)
+void Level::drawBackground(SDL_Renderer * renderer)//SDL_Texture* texture)
 {
-	//Load sprite to texture
-	SDL_Surface* temp = SDL_LoadBMP("../Resources/Sprites/BackgroundTemp.bmp");
-	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, temp);
-	SDL_FreeSurface(temp);
-
+	//Add texture to renderer
 	SDL_RenderClear(renderer);
-	SDL_RenderCopy(renderer, texture, NULL, NULL); //<- draws texture to screen
+	SDL_RenderCopy(renderer, background, NULL, NULL); //<- draws texture to screen
 }

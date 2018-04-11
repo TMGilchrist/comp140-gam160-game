@@ -7,6 +7,7 @@
 #include "Object.h" //Probably temp, remove later.
 
 int initaliseSDL();
+void handleInput(Object shipTest, float deltaTime);
 
 //Screen dimensions
 const int SCREEN_HEIGHT = 600;
@@ -24,6 +25,8 @@ SDL_Window* mainWindow = nullptr;
 //Sprite destination rectangle. Will be moved later.
 SDL_Rect destRect;
 
+const int X_VELOCITY = 100; //Temporarily doing velocity here.
+const int Y_VELOCITY = 100;
 
 int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they need to be here or in initaliseSDL.
 {
@@ -67,7 +70,7 @@ int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they
 		//Calculate deltaTime
 		lastTime = tickTime;
 		tickTime = SDL_GetTicks();
-		deltaTime = (tickTime - lastTime) * 1000;
+		deltaTime = (tickTime - lastTime);
 
 		//Check for SDL events
 		if (SDL_PollEvent(&event))
@@ -85,31 +88,34 @@ int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they
 					switch (event.key.keysym.sym)
 					{
 					case SDLK_ESCAPE:
-							gameRunning = false;
-							break;
-					
+						gameRunning = false;
+						break;
+					}
+					/*
 					//Movement input.
 					case SDLK_w:
 						//shipTest.move(0, -2);
-						shipTest.moveY(-2);
+						shipTest.moveY(deltaTime, -Y_VELOCITY);
 						break;
 					case SDLK_a:
 						//shipTest.move(-2, 0);
-						shipTest.moveX(-2);
+						shipTest.moveX(deltaTime, -X_VELOCITY);
 						break;
 					case SDLK_s:
 						//shipTest.move(0, 2);
-						shipTest.moveY(2);
+						shipTest.moveY(deltaTime, Y_VELOCITY);
 						break;
 					case SDLK_d:
 						//shipTest.move(2, 0);
-						shipTest.moveX(2);
-						break;
-						
-					}
+						shipTest.moveX(deltaTime, X_VELOCITY);
+						break;						
+					}*/
 									
 				break;
 			}
+
+			handleInput(shipTest, deltaTime);
+
 		}
 
 		//Update screen
@@ -117,6 +123,10 @@ int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they
 		mainLevel.drawBackground(renderer);
 		shipTest.drawSelf(renderer);
 		SDL_RenderPresent(renderer);
+
+		//std::cout << deltaTime << std::endl;
+		std::cout << shipTest.getX() <<std::endl;
+		std::cout << shipTest.getY() << std::endl;
 	}
 
 
@@ -159,4 +169,29 @@ int initaliseSDL()
 	}
 
 	return 0;
+}
+
+void handleInput(Object shipTest, float deltaTime) 
+{
+	const Uint8* keystate = SDL_GetKeyboardState(NULL);
+
+	//continuous-response keys
+	if (keystate[SDLK_LEFT])
+	{
+		shipTest.moveX(deltaTime, -X_VELOCITY);
+	}
+	if (keystate[SDLK_RIGHT])
+	{
+		shipTest.moveX(deltaTime, X_VELOCITY);
+	}
+	if (keystate[SDLK_UP])
+	{
+		shipTest.moveX(deltaTime, -Y_VELOCITY);
+	}
+	if (keystate[SDLK_DOWN])
+	{
+		shipTest.moveY(deltaTime, Y_VELOCITY);
+
+	}
+
 }

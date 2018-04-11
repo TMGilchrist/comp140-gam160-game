@@ -41,13 +41,13 @@ public:
 		y = newY;
 	}
 
-	void moveX(float xChange)
+	void moveX(float deltaTime, float xVelocity)
 	{
-		x = x + xChange;
+		x = x + xVelocity * (deltaTime / 1000);
 	}
-	void moveY(float yChange)
+	void moveY(float deltaTime, float yVelocity)
 	{
-		y = y + yChange;
+		y = y + yVelocity *(deltaTime / 1000);
 	}
 private:
 	//The object's sprite component

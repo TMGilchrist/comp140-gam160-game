@@ -74,8 +74,8 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(ProjectDir)$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)Intermediate\</IntDir>
-    <IncludePath>D:\Uni\comp140-gam160-game\ChairShip\Libraries\SDL2_image-2.0.3\include;D:\Uni\comp140-gam160-game\ChairShip\Libraries\SDL2-2.0.8\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Uni\comp140-gam160-game\ChairShip\Libraries\SDL2_image-2.0.3\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\comp140-gam160-game\ChairShip\Libraries\SDL2_image-2.0.3\include;D:\Uni\comp140-gam160-game\ChairShip\Libraries\SDL2_image-2.0.3\include;D:\Uni\comp140-gam160-game\ChairShip\Libraries\SDL2-2.0.8\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\comp140-gam160-game\ChairShip\Libraries\SDL2_image-2.0.3\lib\x86;D:\Uni\comp140-gam160-game\ChairShip\Libraries\SDL2_image-2.0.3\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>

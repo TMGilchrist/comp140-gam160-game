@@ -48,3 +48,4 @@ Level
 
 Useful:
 http://gameprogrammingpatterns.com/observer.html
+https://stackoverflow.com/questions/1252976/how-to-handle-multiple-keypresses-at-once-with-sdl

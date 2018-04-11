@@ -1,5 +1,10 @@
 ShipChair:
 
+FIX DECONSTRUCTORS
+Sprite movement needs to be fixed: Input should change velocity or speed variables of object
+which would update the sprite location. This should allow multi-directional movement compared
+to manually setting the position.
+
 Main
   - SDLsetup
   - Gameloop

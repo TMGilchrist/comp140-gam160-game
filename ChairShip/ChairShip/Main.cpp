@@ -5,13 +5,17 @@
 #include "SDL.h"
 #include "Level.h"
 #include "Object.h" //Probably temp, remove later.
+#include "InputManager.h"
 
 int initaliseSDL();
-void handleInput(Object shipTest, float deltaTime);
 
 //Screen dimensions
 const int SCREEN_HEIGHT = 600;
 const int SCREEN_WIDTH = 400;
+
+const int X_VELOCITY = 100; //Temporarily doing velocity here.
+const int Y_VELOCITY = 100;
+
 
 //Game loop runs while true
 bool gameRunning = true;
@@ -22,18 +26,12 @@ SDL_Renderer* renderer = NULL;
 //The main game window.
 SDL_Window* mainWindow = nullptr;
 
-//Sprite destination rectangle. Will be moved later.
-SDL_Rect destRect;
 
-const int X_VELOCITY = 100; //Temporarily doing velocity here.
-const int Y_VELOCITY = 100;
 
 int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they need to be here or in initaliseSDL.
 {
-	destRect.x = 0;
-	destRect.y = 0;
-	destRect.h = 67;
-	destRect.w = 67;
+	//const Uint8* keyState = SDL_GetKeyboardState(NULL);
+	InputManager input = InputManager();
 
 	//Init times
 	float lastTime = 0;
@@ -50,14 +48,11 @@ int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they
 	//Create new level and draw background. This is temp. Will be replaced.
 	Level mainLevel = Level(renderer, "../Resources/Sprites/BackgroundTemp.bmp");
 
-
 	Object shipTest = Object(renderer, "../Resources/Sprites/ShipTemp.png", 67, 67);
 
+	//Temporarily init sprite position
 	shipTest.setX(200);
 	shipTest.setY(200);
-
-	//mainLevel.drawBackground(renderer);
-	//shipTest.drawSelf(renderer);
 
 	//Current sdl event
 	SDL_Event event;
@@ -83,39 +78,46 @@ int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they
 					gameRunning = false;
 					break;
 
-				//Escape key pressed (could change to another switch statement for more keys)
 				case SDL_KEYDOWN:
+					//Update inputManager
+					input.manageKeyboardEvents(event);
+
+					//Check individual keys by code
 					switch (event.key.keysym.sym)
 					{
-					case SDLK_ESCAPE:
-						gameRunning = false;
-						break;
+						case SDLK_ESCAPE:
+							gameRunning = false;
+							break;
 					}
-					/*
-					//Movement input.
-					case SDLK_w:
-						//shipTest.move(0, -2);
-						shipTest.moveY(deltaTime, -Y_VELOCITY);
-						break;
-					case SDLK_a:
-						//shipTest.move(-2, 0);
-						shipTest.moveX(deltaTime, -X_VELOCITY);
-						break;
-					case SDLK_s:
-						//shipTest.move(0, 2);
-						shipTest.moveY(deltaTime, Y_VELOCITY);
-						break;
-					case SDLK_d:
-						//shipTest.move(2, 0);
-						shipTest.moveX(deltaTime, X_VELOCITY);
-						break;						
-					}*/
-									
+
+				case SDL_KEYUP:
+					//Update inputManager
+					input.manageKeyboardEvents(event);
+					break;
+
 				break;
 			}
 
-			handleInput(shipTest, deltaTime);
+		}
 
+		if (input.isPressed(SDLK_w))
+		{
+			shipTest.moveY(deltaTime, -Y_VELOCITY);
+		}
+
+		if (input.isPressed(SDLK_a))
+		{
+			shipTest.moveX(deltaTime, -X_VELOCITY);
+		}
+
+		if (input.isPressed(SDLK_s))
+		{
+			shipTest.moveY(deltaTime, Y_VELOCITY);
+		}
+
+		if (input.isPressed(SDLK_d))
+		{
+			shipTest.moveX(deltaTime, X_VELOCITY);
 		}
 
 		//Update screen
@@ -125,8 +127,8 @@ int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they
 		SDL_RenderPresent(renderer);
 
 		//std::cout << deltaTime << std::endl;
-		std::cout << shipTest.getX() <<std::endl;
-		std::cout << shipTest.getY() << std::endl;
+		//std::cout << shipTest.getX() <<std::endl;
+		//std::cout << shipTest.getY() << std::endl;
 	}
 
 
@@ -171,27 +173,3 @@ int initaliseSDL()
 	return 0;
 }
 
-void handleInput(Object shipTest, float deltaTime) 
-{
-	const Uint8* keystate = SDL_GetKeyboardState(NULL);
-
-	//continuous-response keys
-	if (keystate[SDLK_LEFT])
-	{
-		shipTest.moveX(deltaTime, -X_VELOCITY);
-	}
-	if (keystate[SDLK_RIGHT])
-	{
-		shipTest.moveX(deltaTime, X_VELOCITY);
-	}
-	if (keystate[SDLK_UP])
-	{
-		shipTest.moveX(deltaTime, -Y_VELOCITY);
-	}
-	if (keystate[SDLK_DOWN])
-	{
-		shipTest.moveY(deltaTime, Y_VELOCITY);
-
-	}
-
-}

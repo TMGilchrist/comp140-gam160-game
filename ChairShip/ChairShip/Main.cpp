@@ -6,6 +6,7 @@
 #include "Level.h"
 #include "Object.h" //Probably temp, remove later.
 #include "InputManager.h"
+#include "Character.h"
 
 int initaliseSDL();
 
@@ -27,13 +28,12 @@ SDL_Renderer* renderer = NULL;
 SDL_Window* mainWindow = nullptr;
 
 
-
 int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they need to be here or in initaliseSDL.
 {
-	//const Uint8* keyState = SDL_GetKeyboardState(NULL);
+	//Initalise InputManager
 	InputManager input = InputManager();
 
-	//Init times
+	//Initialise times
 	float lastTime = 0;
 	float tickTime = 0;
 	float deltaTime = 0;
@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they
 	//Create new level and draw background. This is temp. Will be replaced.
 	Level mainLevel = Level(renderer, "../Resources/Sprites/BackgroundTemp.bmp");
 
-	Object shipTest = Object(renderer, "../Resources/Sprites/ShipTemp.png", 67, 67);
+	Character shipTest = Character(10, 100, renderer, "../Resources/Sprites/ShipTemp.png", 67, 67);
 
 	//Temporarily init sprite position
 	shipTest.setX(200);
@@ -100,6 +100,7 @@ int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they
 
 		}
 
+		//Check inputs. Could be moved to a seperate function for neatness.
 		if (input.isPressed(SDLK_w))
 		{
 			shipTest.moveY(deltaTime, -Y_VELOCITY);
@@ -125,10 +126,6 @@ int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they
 		mainLevel.drawBackground(renderer);
 		shipTest.drawSelf(renderer);
 		SDL_RenderPresent(renderer);
-
-		//std::cout << deltaTime << std::endl;
-		//std::cout << shipTest.getX() <<std::endl;
-		//std::cout << shipTest.getY() << std::endl;
 	}
 
 
@@ -172,4 +169,3 @@ int initaliseSDL()
 
 	return 0;
 }
-

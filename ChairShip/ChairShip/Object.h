@@ -12,16 +12,22 @@ public:
 
 	~Object() {};
 
+	/**
+		Copies the object's sprite data to the renderer so it can be drawn to the screen.
+
+		@param renderer The SDL_Renderer* being used to draw the screen
+		@param sourceRect (Optional) The SDL_Rect* that defines the portion of the sprite texture to draw.
+	*/
 	void drawSelf(SDL_Renderer* renderer);
 	void drawSelf(SDL_Renderer* renderer, SDL_Rect* sourceRect);
 
-	//Update the locationRect
+	/**
+		Updates the SDL_rect that represents the objects
+		location on the screen. Called by drawing funtions.
+	*/
 	void updateLocation();
 
-	//Move the object sprite
-	void move(float newX, float newY);
-
-
+	
 	//Getters and Setters
 	float getX()
 	{

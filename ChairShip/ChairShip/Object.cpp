@@ -33,14 +33,3 @@ void Object::updateLocation()
 	locationRect.w = sprite.getWidth();
 }
 
-void Object::move(float newX, float newY)
-
-{
-	//add velocity to position
-	x = x + newX;
-	y = y + newY;
-	//locationRect.x = newX;
-	//locationRect.y = newY;
-	//locationRect.h = sprite.getHeight();
-	//locationRect.w = sprite.getWidth();
-}

@@ -1,9 +1,6 @@
 ShipChair:
 
 FIX DECONSTRUCTORS
-Sprite movement needs to be fixed: Input should change velocity or speed variables of object
-which would update the sprite location. This should allow multi-directional movement compared
-to manually setting the position.
 
 Main
   - SDLsetup
@@ -11,25 +8,35 @@ Main
 
 Object
   - move
+  - render
   - collisionManager
-  - sprite
+  * sprite
 
-Object:Player
-  - input to move
+Object:Character
+  * health
+  * moveSpeed
+  * isAlive
 
-Object:Enemy
+Character:Player
+  - 
+
+Character:Enemy
   - ai to move
 
-Object:Projectile
 
+Object:Projectile
+  * sprite
+  * damage
+  * speed
 
 Weapon
-  *fireRate
-  *damage (or maybe on the projectile instead?)
+  * projectile
+  * fireRate
+  * damage (or maybe on the projectile instead?)
   - fire (spawn projectile with vector)
  
 InputManager
-  - playerInputs 
+  - trackKeyboardEvents 
 
 CollisionManager
   *bool collided

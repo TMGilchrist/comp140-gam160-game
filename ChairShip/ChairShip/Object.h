@@ -1,6 +1,7 @@
 #pragma once
 #include "SDL.h"
 #include "Sprite.h"
+#include "CollisionBox.h"
 
 class Object
 {
@@ -9,6 +10,7 @@ public:
 
 	//Constructor: passed renderer and the file path for the object sprite.
 	Object(SDL_Renderer* renderer, char* imagePath, float height, float width);
+	Object(SDL_Renderer* renderer, char* imagePath, float height, float width, bool isSolid);
 
 	~Object() {};
 
@@ -46,7 +48,7 @@ public:
 	{
 		y = newY;
 	}
-
+	
 	void moveX(float deltaTime, float xVelocity)
 	{
 		x = x + xVelocity * (deltaTime / 1000);
@@ -63,8 +65,12 @@ private:
 	float x;
 	float y;
 
+	//int x;
+	//int y;
+
 	//Object's location as SDL_Rect
 	SDL_Rect locationRect;
+	CollisionBox collisionBox;
 
 protected:
 

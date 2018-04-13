@@ -2,6 +2,8 @@
 #include "SDL.h"
 #include "Sprite.h"
 #include "CollisionBox.h"
+#include "CollisionManager.h"
+#include <vector>
 
 class Object
 {
@@ -28,7 +30,7 @@ public:
 		location on the screen. Called by drawing funtions.
 	*/
 	void updateLocation();
-
+	void updateLocation(float deltaTime, float xVelocity, float yVelocity, std::vector<Object*> objects);
 	
 	//Getters and Setters
 	float getX()
@@ -43,10 +45,14 @@ public:
 	void setX(float newX)
 	{
 		x = newX;
+		collisionBox.getCollider()->x = newX;
+		locationRect.x = newX;
 	}
 	void setY(float newY)
 	{
 		y = newY;
+		collisionBox.getCollider()->y = newY;
+		locationRect.y = newY;
 	}
 	
 	void moveX(float deltaTime, float xVelocity)
@@ -57,6 +63,7 @@ public:
 	{
 		y = y + yVelocity *(deltaTime / 1000);
 	}
+
 private:
 	//The object's sprite component
 	Sprite sprite;
@@ -65,12 +72,12 @@ private:
 	float x;
 	float y;
 
-	//int x;
-	//int y;
-
 	//Object's location as SDL_Rect
 	SDL_Rect locationRect;
+
+	//Collision bounds of the object
 	CollisionBox collisionBox;
+	CollisionManager collisionManager;
 
 protected:
 

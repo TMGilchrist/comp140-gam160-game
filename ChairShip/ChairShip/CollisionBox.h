@@ -6,51 +6,15 @@ public:
 	CollisionBox() {};
 	CollisionBox(int initX, int initY, int initHeight, int initWidth, bool initIsSolid);
 
-
 	//Getters and Setters
-
-	int getX()
+	SDL_Rect* getCollider()
 	{
-		return x;
-	}
-	int getY()
-	{
-		return y;
-	}
-	int getHeight()
-	{
-		return height;
-	}
-	int getWidth()
-	{
-		return width;
-	}
-
-	void setX(int newX)
-	{
-		x = newX;
-	}
-	void setY(int newY)
-	{
-		y = newY;
-	}
-	void setHeight(int newHeight)
-	{
-		height = newHeight;
-	}
-	void setWidth(int newWidth)
-	{
-		width = newWidth;
+		return collider;
 	}
 
 private:
-	//Origin of collision box
-	int x;
-	int y;
-
-	//Dimensions of collision box
-	int height;
-	int width;
+	//Rectangle representing collision box
+	SDL_Rect* collider;
 
 	//If the collision box should block movement.
 	bool isSolid;

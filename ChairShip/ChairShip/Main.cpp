@@ -7,8 +7,10 @@
 #include "Object.h" //Probably temp, remove later.
 #include "InputManager.h"
 #include "Character.h"
+#include <vector>
 
 int initaliseSDL();
+void drawObjects();
 
 //Screen dimensions
 const int SCREEN_HEIGHT = 600;
@@ -27,6 +29,8 @@ SDL_Renderer* renderer = NULL;
 //The main game window.
 SDL_Window* mainWindow = nullptr;
 
+//Vector of the active game objects.
+std::vector<Object*> activeObjects;
 
 int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they need to be here or in initaliseSDL.
 {
@@ -48,11 +52,17 @@ int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they
 	//Create new level and draw background. This is temp. Will be replaced.
 	Level mainLevel = Level(renderer, "../Resources/Sprites/BackgroundTemp.bmp");
 
-	Character shipTest = Character(10, 100, renderer, "../Resources/Sprites/ShipTemp.png", 67, 67);
+	//Instantiate player character and add to active objects
+	Character* shipTest = new Character(10, 100, renderer, "../Resources/Sprites/ShipTemp.png", 67, 67);
+	activeObjects.push_back(shipTest);
 
 	//Temporarily init sprite position
-	shipTest.setX(200);
-	shipTest.setY(200);
+	shipTest->setX(200);
+	shipTest->setY(200);
+
+	//Instantiate test "enemy" character
+	Character* enemyTest = new Character(10, 100, renderer, "../Resources/Sprites/ShipTemp.png", 67, 67);
+	activeObjects.push_back(enemyTest);
 
 	//Current sdl event
 	SDL_Event event;
@@ -103,28 +113,32 @@ int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they
 		//Check inputs. Could be moved to a seperate function for neatness.
 		if (input.isPressed(SDLK_w))
 		{
-			shipTest.moveY(deltaTime, -Y_VELOCITY);
+			//shipTest->moveY(deltaTime, -Y_VELOCITY);
+			shipTest->updateLocation(deltaTime, 0, -Y_VELOCITY, activeObjects);
 		}
 
 		if (input.isPressed(SDLK_a))
 		{
-			shipTest.moveX(deltaTime, -X_VELOCITY);
+			//shipTest->moveX(deltaTime, -X_VELOCITY);
+			shipTest->updateLocation(deltaTime, -X_VELOCITY, 0, activeObjects);
 		}
 
 		if (input.isPressed(SDLK_s))
 		{
-			shipTest.moveY(deltaTime, Y_VELOCITY);
+			//shipTest->moveY(deltaTime, Y_VELOCITY);
+			shipTest->updateLocation(deltaTime, 0, Y_VELOCITY, activeObjects);
 		}
 
 		if (input.isPressed(SDLK_d))
 		{
-			shipTest.moveX(deltaTime, X_VELOCITY);
+			//shipTest->moveX(deltaTime, X_VELOCITY);
+			shipTest->updateLocation(deltaTime, X_VELOCITY, 0, activeObjects);
 		}
 
 		//Update screen
 		SDL_RenderClear(renderer);
 		mainLevel.drawBackground(renderer);
-		shipTest.drawSelf(renderer);
+		drawObjects();
 		SDL_RenderPresent(renderer);
 	}
 
@@ -169,3 +183,14 @@ int initaliseSDL()
 
 	return 0;
 }
+
+//Render all active objects
+void drawObjects()
+{
+	for each (Object* object in activeObjects)
+	{
+		object->drawSelf(renderer);
+	}
+}
+
+

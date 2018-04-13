@@ -29,51 +29,17 @@ public:
 		Updates the SDL_rect that represents the objects
 		location on the screen. Called by drawing funtions.
 	*/
-	void updateLocation();
-	void updateLocation(float deltaTime, float xVelocity, float yVelocity, std::vector<Object*> objects);
+	void move(float deltaTime, float xVelocity, float yVelocity, std::vector<Object*> objects);
 	
 	//Getters and Setters
-	float getX()
-	{
-		return x;
-	}
-	float getY()
-	{
-		return y;
-	}
-
-	void setX(float newX)
-	{
-		x = newX;
-		collisionBox.getCollider()->x = newX;
-		locationRect.x = newX;
-	}
-	void setY(float newY)
-	{
-		y = newY;
-		collisionBox.getCollider()->y = newY;
-		locationRect.y = newY;
-	}
-	
-	void moveX(float deltaTime, float xVelocity)
-	{
-		x = x + xVelocity * (deltaTime / 1000);
-	}
-	void moveY(float deltaTime, float yVelocity)
-	{
-		y = y + yVelocity *(deltaTime / 1000);
-	}
+	void setLocation(int x, int y);
 
 private:
 	//The object's sprite component
 	Sprite sprite;
 
-	//Object's position on screen
-	float x;
-	float y;
-
 	//Object's location as SDL_Rect
-	SDL_Rect locationRect;
+	SDL_Rect location;
 
 	//Collision bounds of the object
 	CollisionBox collisionBox;

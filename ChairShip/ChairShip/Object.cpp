@@ -7,9 +7,11 @@
 Object::Object(SDL_Renderer * renderer, char* imagePath, float height, float width)
 {
 	sprite = Sprite(renderer, imagePath, height, width);
-	x = 0;
-	y = 0;
-	updateLocation();
+
+	location.x = 0;
+	location.y = 0;
+	location.h = height;
+	location.w = width;
 
 	collisionBox = CollisionBox(0, 0, height, width, false);
 	collisionManager = CollisionManager();
@@ -19,9 +21,11 @@ Object::Object(SDL_Renderer * renderer, char* imagePath, float height, float wid
 Object::Object(SDL_Renderer * renderer, char * imagePath, float height, float width, bool isSolid)
 {
 	sprite = Sprite(renderer, imagePath, height, width);
-	x = 0;
-	y = 0;
-	updateLocation();
+
+	location.x = 0;
+	location.y = 0;
+	location.h = height;
+	location.w = width;
 
 	collisionBox = CollisionBox(0, 0, height, width, isSolid);
 	collisionManager = CollisionManager();
@@ -31,44 +35,24 @@ Object::Object(SDL_Renderer * renderer, char * imagePath, float height, float wi
 void Object::drawSelf(SDL_Renderer * renderer)
 {
 	//Add texture to renderer
-	//updateLocation();
-	SDL_RenderCopy(renderer, sprite.getTexture(), NULL, &locationRect);
+	SDL_RenderCopy(renderer, sprite.getTexture(), NULL, &location);
 }
 
 void Object::drawSelf(SDL_Renderer * renderer, SDL_Rect * sourceRect)
 {
 	//Add texture to renderer
-	updateLocation();
-	SDL_RenderCopy(renderer, sprite.getTexture(), sourceRect, &locationRect);
+	SDL_RenderCopy(renderer, sprite.getTexture(), sourceRect, &location);
 }
 
-//Should move the sprite getters into a sprite update function. Probably redundant now.
-void Object::updateLocation()
-{
-	
-	//Update object location
-	locationRect.x = x;
-	locationRect.y = y;
-	locationRect.h = sprite.getHeight();
-	locationRect.w = sprite.getWidth();
-
-	/*
-	//Update collisionBox
-	collisionBox.getCollider()->x = x;
-	collisionBox.getCollider()->y = y;
-	collisionBox.getCollider()->h = sprite.getHeight();
-	collisionBox.getCollider()->w = sprite.getWidth();*/
-
-}
 
 //Check collision in new desitination. Move to destination if no collisions are found.
-void Object::updateLocation(float deltaTime, float xVelocity, float yVelocity, std::vector<Object*> activeObjects)
+void Object::move(float deltaTime, float xVelocity, float yVelocity, std::vector<Object*> activeObjects)
 {
 	bool isCollided = false;
 
 	//Location the object wants to move to
-	float destX = x + xVelocity * (deltaTime / 1000);
-	float destY = y + yVelocity *(deltaTime / 1000);
+	float destX = location.x + xVelocity * (deltaTime / 1000);
+	float destY = location.y + yVelocity *(deltaTime / 1000);
 	
 	//Update the collision box to match the new destination
 	collisionBox.getCollider()->x = destX;
@@ -77,38 +61,47 @@ void Object::updateLocation(float deltaTime, float xVelocity, float yVelocity, s
 	//Check collision with each other active object
 	for each (Object* object in activeObjects)
 	{
+		//Make sure object isn't trying to check collision with itself
 		if (object != this) 
 		{
-			//If there are any collisions, break out and don't move the object
+			//If there are any collisions, break out and set collided flag
 			if (collisionManager.checkCollision(collisionBox.getCollider(), object->collisionBox.getCollider()) == true)
 			{
 				std::cout << "Collision!" << std::endl;
 				isCollided = true;
 
 				//Reset collision box to original location
-				collisionBox.getCollider()->x = x;
-				collisionBox.getCollider()->y = y;
+				collisionBox.getCollider()->x = location.x;
+				collisionBox.getCollider()->y = location.y;
 				break;
 			}
 		}
-
-
-
 	}
 
 	//If there are no collisions, update object location
 	if (isCollided != true)
 	{
-		x = destX;
-		y = destY;
+		location.x = destX;
+		location.y = destY;
 
-		locationRect.x = x;
-		locationRect.y = y;
+		//location.x = x;
+		//location.y = y;
 
 		collisionBox.getCollider()->x = destX;
 		collisionBox.getCollider()->y = destY;
 	}
 
 
+}
+
+void Object::setLocation(int newX, int newY)
+{
+	//Update location
+	location.x = newX;
+	location.y = newY;
+
+	//Update the collision box to match the new location
+	collisionBox.getCollider()->x = newX;
+	collisionBox.getCollider()->y = newY;
 }
 

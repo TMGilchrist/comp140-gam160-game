@@ -57,8 +57,10 @@ int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they
 	activeObjects.push_back(shipTest);
 
 	//Temporarily init sprite position
-	shipTest->setX(200);
-	shipTest->setY(200);
+	//shipTest->setX(200);
+	//shipTest->setY(200);
+
+	shipTest->setLocation(200, 200);
 
 	//Instantiate test "enemy" character
 	Character* enemyTest = new Character(10, 100, renderer, "../Resources/Sprites/ShipTemp.png", 67, 67);
@@ -114,25 +116,25 @@ int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they
 		if (input.isPressed(SDLK_w))
 		{
 			//shipTest->moveY(deltaTime, -Y_VELOCITY);
-			shipTest->updateLocation(deltaTime, 0, -Y_VELOCITY, activeObjects);
+			shipTest->move(deltaTime, 0, -Y_VELOCITY, activeObjects);
 		}
 
 		if (input.isPressed(SDLK_a))
 		{
 			//shipTest->moveX(deltaTime, -X_VELOCITY);
-			shipTest->updateLocation(deltaTime, -X_VELOCITY, 0, activeObjects);
+			shipTest->move(deltaTime, -X_VELOCITY, 0, activeObjects);
 		}
 
 		if (input.isPressed(SDLK_s))
 		{
 			//shipTest->moveY(deltaTime, Y_VELOCITY);
-			shipTest->updateLocation(deltaTime, 0, Y_VELOCITY, activeObjects);
+			shipTest->move(deltaTime, 0, Y_VELOCITY, activeObjects);
 		}
 
 		if (input.isPressed(SDLK_d))
 		{
 			//shipTest->moveX(deltaTime, X_VELOCITY);
-			shipTest->updateLocation(deltaTime, X_VELOCITY, 0, activeObjects);
+			shipTest->move(deltaTime, X_VELOCITY, 0, activeObjects);
 		}
 
 		//Update screen

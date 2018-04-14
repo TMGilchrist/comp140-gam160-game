@@ -137,6 +137,8 @@ int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they
 			shipTest->move(deltaTime, X_VELOCITY, 0, activeObjects);
 		}
 
+		std::cout << deltaTime << std::endl;
+
 		//Update screen
 		SDL_RenderClear(renderer);
 		mainLevel.drawBackground(renderer);

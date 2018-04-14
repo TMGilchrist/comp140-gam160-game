@@ -2,6 +2,7 @@
 #include "Object.h"
 #include "Utility.h"
 #include <vector>
+#include <cmath>
 
 //Constructor ( should probably add ability to customise collision box at some point)
 Object::Object(SDL_Renderer * renderer, char* imagePath, float height, float width)
@@ -51,8 +52,8 @@ void Object::move(float deltaTime, float xVelocity, float yVelocity, std::vector
 	bool isCollided = false;
 
 	//Location the object wants to move to
-	float destX = location.x + xVelocity * (deltaTime / 1000);
-	float destY = location.y + yVelocity *(deltaTime / 1000);
+	float destX = round(location.x + xVelocity * (deltaTime / 1000));
+	float destY = round(location.y + yVelocity *(deltaTime / 1000));
 	
 	//Update the collision box to match the new destination
 	collisionBox.getCollider()->x = destX;

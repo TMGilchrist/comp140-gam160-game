@@ -29,8 +29,4 @@ private:
 	//Damage dealt on collision
 	int damage;
 
-	//Collision bounds of the object
-	//CollisionBox collisionBox;
-	//CollisionManager collisionManager;
-
 };

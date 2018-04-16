@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they
 	Character* shipTest = new Character(10, 100, 100, renderer, "../Resources/Sprites/ShipTemp.png", 67, 67);
 	activeObjects.push_back(shipTest);
 
-shipTest->initaliseWeapon(1, 200, 1, renderer, "../Resources/Sprites/ProjectileTemp.png", 10, 10);
+	//shipTest->initaliseWeapon(1, 200, 1, renderer, "../Resources/Sprites/ProjectileTemp.png", 10, 10);
 
 	//Move player to center of screen
 	shipTest->setLocation(200, 200);

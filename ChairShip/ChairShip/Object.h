@@ -38,15 +38,22 @@ public:
 	void checkCollision(std::vector<Object*> activeObjects);
 
 	//Getters and Setters
-	void setLocation(int x, int y, int newHeight = 0, int newWidth = 0);
+
+	SDL_Rect getLocation()
+	{
+		return location;
+	};
+
+	//Chained overload to allow member variables as default values
+	void setLocation(int x, int y) 
+	{
+		setLocation(x, y, location.h, location.w);
+	};
+	void setLocation(int x, int y, int newHeight, int newWidth);
+
 	void setSprite(Sprite newSprite)
 	{
 		sprite = newSprite;
-	};
-
-	SDL_Rect getLocation() 
-	{
-		return location;
 	};
 
 private:

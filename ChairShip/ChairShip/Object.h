@@ -35,7 +35,7 @@ public:
 	void move(float deltaTime, float xVelocity, float yVelocity, std::vector<Object*> objects);
 	
 	//TO check collision with other objects. Incomplete.
-	void checkCollision(std::vector<Object*> activeObjects);
+	int checkCollision(std::vector<Object*> activeObjects);
 
 	//Getters and Setters
 

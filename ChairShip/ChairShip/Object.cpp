@@ -64,7 +64,8 @@ void Object::drawSelf(SDL_Renderer * renderer, SDL_Rect * sourceRect)
 //Check collision in new desitination. Move to destination if no collisions are found.
 void Object::move(float deltaTime, float xVelocity, float yVelocity, std::vector<Object*> activeObjects)
 {
-	bool isCollided = false;
+	int isCollided = checkCollision(activeObjects);
+	bool isCollied = false;
 
 	//Location the object wants to move to
 	float destX = round(location.x + xVelocity * (deltaTime / 1000));
@@ -74,6 +75,7 @@ void Object::move(float deltaTime, float xVelocity, float yVelocity, std::vector
 	collisionBox.getCollider().x = destX;
 	collisionBox.getCollider().y = destY;
 
+	
 	//Check collision with each other active object
 	for each (Object* object in activeObjects)
 	{
@@ -96,6 +98,15 @@ void Object::move(float deltaTime, float xVelocity, float yVelocity, std::vector
 			}
 		}
 	}
+	
+	
+	/*
+	if (checkCollision(activeObjects) == 1) 
+	{
+		//Reset collision box to original location
+		collisionBox.getCollider().x = location.x;
+		collisionBox.getCollider().y = location.y;
+	}*/
 
 	//If there are no collisions, update object location
 	if (isCollided != true)
@@ -110,9 +121,10 @@ void Object::move(float deltaTime, float xVelocity, float yVelocity, std::vector
 
 }
 
-void Object::checkCollision(std::vector<Object*> activeObjects)
+int Object::checkCollision(std::vector<Object*> activeObjects)
 {
-	bool isCollided = false;
+	//0 is no collision, 1 is solid collision, 2 is non-solid collision
+	int isCollided = 0;
 
 	//Check collision with each other active object
 	for each (Object* object in activeObjects)
@@ -124,12 +136,14 @@ void Object::checkCollision(std::vector<Object*> activeObjects)
 			if (collisionManager.checkCollision(collisionBox.getCollider(), object->collisionBox.getCollider()) == true)
 			{
 				std::cout << "Collision!" << std::endl;
-				isCollided = true;
-
-				break;
+				//isCollided = true;
+				isCollided = 1;
+				return isCollided;
 			}
 		}
 	}
+
+	return isCollided;
 }
 
 //Set object location without checking for collision (teleport essentially)

@@ -7,9 +7,7 @@ public:
 	CollisionManager() {};
 	~CollisionManager() {};
 
-	bool checkCollision(SDL_Rect* objectChecking, SDL_Rect* objectToCheck);
-
-
+	bool checkCollision(SDL_Rect& objectChecking, SDL_Rect& objectToCheck);
 
 private:
 

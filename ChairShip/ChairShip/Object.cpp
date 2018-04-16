@@ -15,6 +15,7 @@ Object::Object(SDL_Renderer * renderer, char* imagePath, int height, int width)
 	location.w = width;
 
 	collisionBox = CollisionBox(0, 0, height, width, false);
+
 	collisionManager = CollisionManager();
 }
 
@@ -70,8 +71,8 @@ void Object::move(float deltaTime, float xVelocity, float yVelocity, std::vector
 	float destY = round(location.y + yVelocity *(deltaTime / 1000));
 	
 	//Update the collision box to match the new destination
-	collisionBox.getCollider()->x = destX;
-	collisionBox.getCollider()->y = destY;
+	collisionBox.getCollider().x = destX;
+	collisionBox.getCollider().y = destY;
 
 	//Check collision with each other active object
 	for each (Object* object in activeObjects)
@@ -89,8 +90,8 @@ void Object::move(float deltaTime, float xVelocity, float yVelocity, std::vector
 				//Raise event for collided objects
 
 				//Reset collision box to original location
-				collisionBox.getCollider()->x = location.x;
-				collisionBox.getCollider()->y = location.y;
+				collisionBox.getCollider().x = location.x;
+				collisionBox.getCollider().y = location.y;
 				break;
 			}
 		}
@@ -102,8 +103,8 @@ void Object::move(float deltaTime, float xVelocity, float yVelocity, std::vector
 		location.x = int(destX);
 		location.y = int(destY);
 
-		collisionBox.getCollider()->x = destX;
-		collisionBox.getCollider()->y = destY;
+		collisionBox.getCollider().x = destX;
+		collisionBox.getCollider().y = destY;
 	}
 
 
@@ -141,7 +142,7 @@ void Object::setLocation(int newX, int newY, int newHeight, int newWidth)
 	location.w = newWidth;
 
 	//Update the collision box to match the new location
-	collisionBox.getCollider()->x = newX;
-	collisionBox.getCollider()->y = newY;
+	collisionBox.getCollider().x = newX;
+	collisionBox.getCollider().y = newY;
 }
 

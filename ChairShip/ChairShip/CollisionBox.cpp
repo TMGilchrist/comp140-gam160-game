@@ -6,9 +6,9 @@ CollisionBox::CollisionBox(int initX, int initY, int initHeight, int initWidth, 
 {
 	isSolid = initIsSolid;
 
-	collider = new SDL_Rect();
-	collider->x = initX;
-	collider->y = initY;
-	collider->h = initHeight;
-	collider->w = initWidth;
+	collider = SDL_Rect();
+	collider.x = initX;
+	collider.y = initY;
+	collider.h = initHeight;
+	collider.w = initWidth;
 }

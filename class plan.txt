@@ -1,6 +1,12 @@
 ShipChair:
 
 FIX DECONSTRUCTORS
+Fix weapon.
+Currently projectiles spawn in ship so collision freaks out.
+Need to make collision detection check if the object is solid.
+Projectiles should be in active objects list
+Projectile collider not being created properly
+Projectile not in right location
 
 Main
   - SDLsetup

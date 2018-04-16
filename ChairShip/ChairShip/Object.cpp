@@ -4,7 +4,7 @@
 #include <vector>
 #include <cmath>
 
-//Constructor ( should probably add ability to customise collision box at some point)
+//Constructor (should probably add ability to customise collision box at some point)
 Object::Object(SDL_Renderer * renderer, char* imagePath, int height, int width)
 {
 	sprite = Sprite(renderer, imagePath, height, width);

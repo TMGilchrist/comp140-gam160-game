@@ -29,7 +29,7 @@ private:
 	//The interval between shots
 	int cooldown;
 
-	Projectile projectile;
+	//Projectile projectile;
 
 	//The sprite this weapon's projectiles will use
 	Sprite projectileSprite;

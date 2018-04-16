@@ -11,8 +11,11 @@ public:
 	Object() {};
 
 	//Constructor: passed renderer and the file path for the object sprite.
-	Object(SDL_Renderer* renderer, char* imagePath, float height, float width);
+	Object(SDL_Renderer* renderer, char* imagePath, int height, int width);
 	Object(SDL_Renderer* renderer, char* imagePath, float height, float width, bool isSolid);
+
+	//Constructor for creating object with ready made sprite
+	Object(Sprite initSprite, SDL_Renderer* renderer);
 
 	~Object() {};
 
@@ -31,8 +34,20 @@ public:
 	*/
 	void move(float deltaTime, float xVelocity, float yVelocity, std::vector<Object*> objects);
 	
+	//TO check collision with other objects. Incomplete.
+	void checkCollision(std::vector<Object*> activeObjects);
+
 	//Getters and Setters
-	void setLocation(int x, int y);
+	void setLocation(int x, int y, int newHeight = 0, int newWidth = 0);
+	void setSprite(Sprite newSprite)
+	{
+		sprite = newSprite;
+	};
+
+	SDL_Rect getLocation() 
+	{
+		return location;
+	};
 
 private:
 	//The object's sprite component

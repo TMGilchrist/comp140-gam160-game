@@ -1,5 +1,6 @@
 #pragma once
 #include "Object.h"
+#include "Weapon.h"
 
 class Character : public Object
 {
@@ -7,10 +8,11 @@ public:
 	Character() {};
 
 	//Add docstring for constructor!
-	Character(int initHealth, float initSpeed, SDL_Renderer* renderer=NULL, char* imagePath=NULL, float height=0, float width=0) : Object(renderer, imagePath, height, width)
+	Character(int initHealth, float initXSpeed, float initYSpeed, SDL_Renderer* renderer=NULL, char* imagePath=NULL, float height=0, float width=0) : Object(renderer, imagePath, height, width)
 	{
 		health = initHealth;
-		speed = initSpeed;
+		xSpeed = initXSpeed;
+		ySpeed = initYSpeed;
 	}
 
 	~Character() {};
@@ -21,11 +23,18 @@ public:
 		health = health + healthChange;
 	}
 
+	void initaliseWeapon(int initDamage, int initProjectileSpeed, int initCooldown, SDL_Renderer* renderer, char* imagePath, int height, int width);
+
 	//Getters and Setters
-	float getSpeed()
+	float getXSpeed()
 	{
-		return speed;
+		return xSpeed;
 	}
+	float getYSpeed()
+	{
+		return ySpeed;
+	}
+
 	int getHealth()
 	{
 		return health;
@@ -37,7 +46,11 @@ public:
 	}
 	void setSpeed(float newSpeed)
 	{
-		speed = newSpeed;
+		xSpeed = newSpeed;
+	}
+	void setYSpeed(float newSpeed)
+	{
+		ySpeed = newSpeed;
 	}
 	
 private:
@@ -45,6 +58,10 @@ private:
 	int health;
 
 	//Character's movement speed
-	float speed;
+	float xSpeed;
+	float ySpeed;
+
+	//Character's weapons
+	Weapon weapon;
 
 };

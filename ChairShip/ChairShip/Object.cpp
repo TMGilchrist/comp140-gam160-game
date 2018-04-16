@@ -5,7 +5,7 @@
 #include <cmath>
 
 //Constructor ( should probably add ability to customise collision box at some point)
-Object::Object(SDL_Renderer * renderer, char* imagePath, float height, float width)
+Object::Object(SDL_Renderer * renderer, char* imagePath, int height, int width)
 {
 	sprite = Sprite(renderer, imagePath, height, width);
 
@@ -29,6 +29,20 @@ Object::Object(SDL_Renderer * renderer, char * imagePath, float height, float wi
 	location.w = width;
 
 	collisionBox = CollisionBox(0, 0, height, width, isSolid);
+	collisionManager = CollisionManager();
+}
+
+//Constructor where sprite is already loaded
+Object::Object(Sprite initSprite, SDL_Renderer* renderer)
+{
+	sprite = initSprite;
+
+	location.x = 0;
+	location.y = 0;
+	location.h = sprite.getHeight();
+	location.w = sprite.getWidth();
+
+	collisionBox = CollisionBox(0, 0, location.h, location.w, false);
 	collisionManager = CollisionManager();
 }
 
@@ -71,6 +85,9 @@ void Object::move(float deltaTime, float xVelocity, float yVelocity, std::vector
 				std::cout << "Collision!" << std::endl;
 				isCollided = true;
 
+				//Check for isSolid
+				//Raise event for collided objects
+
 				//Reset collision box to original location
 				collisionBox.getCollider()->x = location.x;
 				collisionBox.getCollider()->y = location.y;
@@ -82,11 +99,8 @@ void Object::move(float deltaTime, float xVelocity, float yVelocity, std::vector
 	//If there are no collisions, update object location
 	if (isCollided != true)
 	{
-		location.x = destX;
-		location.y = destY;
-
-		//location.x = x;
-		//location.y = y;
+		location.x = int(destX);
+		location.y = int(destY);
 
 		collisionBox.getCollider()->x = destX;
 		collisionBox.getCollider()->y = destY;
@@ -95,11 +109,36 @@ void Object::move(float deltaTime, float xVelocity, float yVelocity, std::vector
 
 }
 
-void Object::setLocation(int newX, int newY)
+void Object::checkCollision(std::vector<Object*> activeObjects)
+{
+	bool isCollided = false;
+
+	//Check collision with each other active object
+	for each (Object* object in activeObjects)
+	{
+		//Make sure object isn't trying to check collision with itself
+		if (object != this)
+		{
+			//If there are any collisions, break out and set collided flag
+			if (collisionManager.checkCollision(collisionBox.getCollider(), object->collisionBox.getCollider()) == true)
+			{
+				std::cout << "Collision!" << std::endl;
+				isCollided = true;
+
+				break;
+			}
+		}
+	}
+}
+
+//Set object location without checking for collision (teleport essentially)
+void Object::setLocation(int newX, int newY, int newHeight, int newWidth)
 {
 	//Update location
 	location.x = newX;
 	location.y = newY;
+	location.h = newHeight;
+	location.w = newWidth;
 
 	//Update the collision box to match the new location
 	collisionBox.getCollider()->x = newX;

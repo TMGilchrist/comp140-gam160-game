@@ -6,6 +6,11 @@ public:
 	CollisionBox() {};
 	CollisionBox(int initX, int initY, int initHeight, int initWidth, bool initIsSolid);
 
+	~CollisionBox() 
+	{ 
+		delete collider; 
+	};
+
 	//Getters and Setters
 	SDL_Rect* getCollider()
 	{

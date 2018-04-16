@@ -16,10 +16,6 @@ void drawObjects();
 const int SCREEN_HEIGHT = 600;
 const int SCREEN_WIDTH = 400;
 
-const int X_VELOCITY = 100; //Temporarily doing velocity here.
-const int Y_VELOCITY = 100;
-
-
 //Game loop runs while true
 bool gameRunning = true;
 
@@ -53,17 +49,16 @@ int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they
 	Level mainLevel = Level(renderer, "../Resources/Sprites/BackgroundTemp.bmp");
 
 	//Instantiate player character and add to active objects
-	Character* shipTest = new Character(10, 100, renderer, "../Resources/Sprites/ShipTemp.png", 67, 67);
+	Character* shipTest = new Character(10, 100, 100, renderer, "../Resources/Sprites/ShipTemp.png", 67, 67);
 	activeObjects.push_back(shipTest);
 
-	//Temporarily init sprite position
-	//shipTest->setX(200);
-	//shipTest->setY(200);
+shipTest->initaliseWeapon(1, 200, 1, renderer, "../Resources/Sprites/ProjectileTemp.png", 10, 10);
 
+	//Move player to center of screen
 	shipTest->setLocation(200, 200);
 
 	//Instantiate test "enemy" character
-	Character* enemyTest = new Character(10, 100, renderer, "../Resources/Sprites/ShipTemp.png", 67, 67);
+	Character* enemyTest = new Character(10, 100, 100, renderer, "../Resources/Sprites/ShipTemp.png", 67, 67);
 	activeObjects.push_back(enemyTest);
 
 	//Current sdl event
@@ -112,32 +107,34 @@ int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they
 
 		}
 
-		//Check inputs. Could be moved to a seperate function for neatness.
+		//Check inputs. Could be moved to a seperate function for neatness?
 		if (input.isPressed(SDLK_w))
 		{
-			//shipTest->moveY(deltaTime, -Y_VELOCITY);
-			shipTest->move(deltaTime, 0, -Y_VELOCITY, activeObjects);
+			shipTest->move(deltaTime, 0, -enemyTest->getYSpeed(), activeObjects);
 		}
 
 		if (input.isPressed(SDLK_a))
 		{
-			//shipTest->moveX(deltaTime, -X_VELOCITY);
-			shipTest->move(deltaTime, -X_VELOCITY, 0, activeObjects);
+			shipTest->move(deltaTime, -enemyTest->getXSpeed(), 0, activeObjects);
 		}
 
 		if (input.isPressed(SDLK_s))
 		{
-			//shipTest->moveY(deltaTime, Y_VELOCITY);
-			shipTest->move(deltaTime, 0, Y_VELOCITY, activeObjects);
+			shipTest->move(deltaTime, 0, enemyTest->getYSpeed(), activeObjects);
 		}
 
 		if (input.isPressed(SDLK_d))
 		{
-			//shipTest->moveX(deltaTime, X_VELOCITY);
-			shipTest->move(deltaTime, X_VELOCITY, 0, activeObjects);
+			shipTest->move(deltaTime, enemyTest->getXSpeed(), 0, activeObjects);
 		}
 
-		std::cout << deltaTime << std::endl;
+		if (input.isPressed(SDLK_SPACE))
+		{
+			//Call shipTest->weapon->fire();
+		}
+
+
+		//std::cout << deltaTime << std::endl;
 
 		//Update screen
 		SDL_RenderClear(renderer);

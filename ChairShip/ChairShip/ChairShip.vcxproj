@@ -74,8 +74,8 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(ProjectDir)$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)Intermediate\</IntDir>
-    <IncludePath>D:\comp140-gam160-game\ChairShip\Libraries\SDL2_image-2.0.3\include;D:\Uni\comp140-gam160-game\ChairShip\Libraries\SDL2_image-2.0.3\include;D:\Uni\comp140-gam160-game\ChairShip\Libraries\SDL2-2.0.8\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\comp140-gam160-game\ChairShip\Libraries\SDL2_image-2.0.3\lib\x86;D:\Uni\comp140-gam160-game\ChairShip\Libraries\SDL2_image-2.0.3\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\Libraries\serial\include;..\Libraries\SDL2_image-2.0.3\include;..\Libraries\SDL2-2.0.8\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\Libraries\serial\visual_studio\Debug;..\Libraries\SDL2_image-2.0.3\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -93,13 +93,13 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Uni\comp140-gam160-game\ChairShip\Libraries\SDL2-2.0.8\include;D:\comp140-gam160-game\ChairShip\Libraries\SDL2-2.0.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Libraries\SDL2-2.0.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\Uni\comp140-gam160-game\ChairShip\Libraries\SDL2-2.0.8\lib\x86;D:\comp140-gam160-game\ChairShip\Libraries\SDL2-2.0.8\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\Libraries\SDL2-2.0.8\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;serial.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -164,6 +164,7 @@
     <ClInclude Include="Character.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Projectile.h" />
+    <ClInclude Include="SerialInterface.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -183,6 +184,7 @@
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="Serialinterface.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

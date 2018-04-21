@@ -16,10 +16,6 @@
 int initaliseSDL();
 void drawObjects();
 
-//Screen dimensions
-//const int SCREEN_HEIGHT = 600;
-//const int SCREEN_WIDTH = 400;
-
 //Game loop runs while true
 bool gameRunning = true;
 
@@ -118,37 +114,8 @@ int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they
 
 		}
 
-
-		//Check inputs. Could be moved to a seperate function for neatness?
-		if (input.isPressed(SDLK_w))
-		{
-			shipTest->move(deltaTime, 0, -shipTest->getYSpeed(), activeObjects);
-		}
-
-		if (input.isPressed(SDLK_a))
-		{
-			shipTest->move(deltaTime, -shipTest->getXSpeed(), 0, activeObjects);
-		}
-
-		if (input.isPressed(SDLK_s))
-		{
-			shipTest->move(deltaTime, 0, shipTest->getYSpeed(), activeObjects);
-		}
-
-		if (input.isPressed(SDLK_d))
-		{
-			shipTest->move(deltaTime, shipTest->getXSpeed(), 0, activeObjects);
-		}
-
-		if (input.isPressed(SDLK_SPACE))
-		{
-			//Call shipTest->weapon->fire();
-		}
-	
-
+		//Check for input
 		controller.control(shipTest, input, deltaTime, activeObjects);
-
-		//std::cout << deltaTime << std::endl;
 
 		//Update screen
 		SDL_RenderClear(renderer);
@@ -161,9 +128,7 @@ int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they
 	//Close window
 	SDL_DestroyWindow(mainWindow);
 	SDL_Quit();
-
 	mainLevel.~Level();
-
 	return 0;
 }
 

@@ -3,38 +3,14 @@
 
 
 void PlayerController::control(Character* player, InputManager &input, float deltaTime, std::vector<Object*> activeObjects)
-{
-	/*
-	//Check inputs. Could be moved to a seperate function for neatness?
-	if (input.isPressed(SDLK_w))
-	{
-		player->move(deltaTime, 0, -enemyTest->getYSpeed(), activeObjects);
-	}
+{	
+	//Disable accelerometer input for testing 
+	bool manualOverride = true; 
 
-	if (input.isPressed(SDLK_a))
+	//Use controller input
+	if (controller.getConnected() && manualOverride != true) 
 	{
-		player->move(deltaTime, -enemyTest->getXSpeed(), 0, activeObjects);
-	}
-
-	if (input.isPressed(SDLK_s))
-	{
-		player->move(deltaTime, 0, enemyTest->getYSpeed(), activeObjects);
-	}
-
-	if (input.isPressed(SDLK_d))
-	{
-		player->move(deltaTime, enemyTest->getXSpeed(), 0, activeObjects);
-	}
-
-	if (input.isPressed(SDLK_SPACE))
-	{
-		//Call &&player->weapon->fire();
-	}
-	*/
-	bool connected = true; //This should be changed later to be if the serial port is connected
-
-	if (connected) 
-	{
+		//Update accelerometer values
 		controller.getData();
 
 		std::cout << controller.getX() << std::endl;
@@ -43,7 +19,7 @@ void PlayerController::control(Character* player, InputManager &input, float del
 		std::cout << std::endl;
 
 
-		//left
+		//Left
 		if (controller.getY() > 0.3)
 		{
 			player->move(deltaTime, -player->getXSpeed(), 0, activeObjects);
@@ -68,6 +44,35 @@ void PlayerController::control(Character* player, InputManager &input, float del
 		}
 	}
 
+	//use keyboard input
+	else
+	{
+		//Check inputs. Could be moved to a seperate function for neatness?
+		if (input.isPressed(SDLK_w))
+		{
+			player->move(deltaTime, 0, -player->getYSpeed(), activeObjects);
+		}
+
+		if (input.isPressed(SDLK_a))
+		{
+			player->move(deltaTime, -player->getXSpeed(), 0, activeObjects);
+		}
+
+		if (input.isPressed(SDLK_s))
+		{
+			player->move(deltaTime, 0, player->getYSpeed(), activeObjects);
+		}
+
+		if (input.isPressed(SDLK_d))
+		{
+			player->move(deltaTime, player->getXSpeed(), 0, activeObjects);
+		}
+
+		if (input.isPressed(SDLK_SPACE))
+		{
+			//Call shipTest->weapon->fire();
+		}
+	}
 
 
 }

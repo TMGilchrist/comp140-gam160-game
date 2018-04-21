@@ -63,17 +63,18 @@ void loop()
   sensors_event_t event; 
   lis.getEvent(&event);
 
-  inByte = Serial.read();
-
-  if(inByte == 'P')
+  if(Serial.available() > 0)
   {
-  /* Display the results (acceleration is measured in m/s^2) */
-  Serial.print("\t\tX: "); Serial.print(event.acceleration.x);
-  Serial.print(" \tY: "); Serial.print(event.acceleration.y); 
-  Serial.print(" \tZ: "); Serial.print(event.acceleration.z); 
-  Serial.println(" m/s^2 ");
+      inByte = Serial.read();
 
-  Serial.println();
+      if(inByte == 'P')
+      {        
+        /* Display the results (acceleration is measured in m/s^2) */
+        Serial.print(event.acceleration.x); Serial.print(";");
+        Serial.print(event.acceleration.y); Serial.print(";");
+        Serial.print(event.acceleration.z); 
+      }
+    
   }
-  
+
 }

@@ -15,7 +15,7 @@ SerialInterface::SerialInterface()
 
 		try
 		{
-			mySerial = new serial::Serial(port, 9200, serial::Timeout::simpleTimeout(250)); //maybe change 9200 to 115200?
+			mySerial = new serial::Serial(port, 9600, serial::Timeout::simpleTimeout(250)); //maybe change 9200 to 115200?
 
 			if (mySerial->isOpen())
 			{
@@ -43,19 +43,30 @@ void SerialInterface::send(std::string message)
 
 void SerialInterface::getData()
 {
-	//Write to the monitor to get reading
-	send("P");
+	if (connected) 
+	{
+		//Write to the monitor to get reading
+		//send("P");
+		mySerial->write("P");
 
-	//Get result from accelerometer
-	std::string result = mySerial->readline();
+		//Get result from accelerometer
+		std::string result = mySerial->readline();
+		//std::cout << result << std::endl;
 
-	//Split result string into each axis reading
-	std::vector <std::string> readings = splitString(result, ';');
+		//Split result string into each axis reading
+		std::vector <std::string> readings = splitString(result, ';');
 
-	//Convert each token to float and assign to variable
-	xReading = std::stof(readings[0]);
-	yReading = std::stof(readings[1]);
-	zReading = std::stof(readings[2]);
+		//Convert each token to float and assign to variable
+		x = std::stof(readings[0]);
+		y = std::stof(readings[1]);
+		z = std::stof(readings[2]);
+	}
+}
+
+void SerialInterface::close()
+{
+	mySerial->flush();
+	mySerial->close();
 }
 
 std::vector<std::string> SerialInterface::splitString(const std::string & string, char delimiter)

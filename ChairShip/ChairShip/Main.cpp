@@ -7,7 +7,9 @@
 #include "Object.h" //Probably temp, remove later.
 #include "InputManager.h"
 #include "Character.h"
+#include "SerialInterface.h"
 #include <vector>
+
 
 int initaliseSDL();
 void drawObjects();
@@ -55,13 +57,22 @@ int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they
 	//Move player to center of screen
 	shipTest->setLocation(200, 200);
 
+	//Weapon testing. Not working yet.
 	shipTest->initaliseWeapon(1, 200, 1, renderer, "../Resources/Sprites/ProjectileTemp.png", 10, 10);
-
 
 
 	//Instantiate test "enemy" character
 	Character* enemyTest = new Character(10, 100, 100, renderer, "../Resources/Sprites/ShipTemp.png", 67, 67);
 	activeObjects.push_back(enemyTest);
+
+
+	//SerialInterface accelerometer = SerialInterface();
+	SerialInterface* accelerometer = new SerialInterface();
+	accelerometer->getData();
+	std::cout << accelerometer->getX() << std::endl;
+	std::cout << accelerometer->getY() << std::endl;
+	std::cout << accelerometer->getZ() << std::endl;
+
 
 	//Current sdl event
 	SDL_Event event;

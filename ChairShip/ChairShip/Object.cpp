@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Object.h"
 #include "Utility.h"
+#include "globals.h"
 #include <vector>
 #include <cmath>
 
@@ -71,10 +72,19 @@ void Object::move(float deltaTime, float xVelocity, float yVelocity, std::vector
 	float destX = round(location.x + xVelocity * (deltaTime / 1000));
 	float destY = round(location.y + yVelocity *(deltaTime / 1000));
 	
+	//Check for level edges. Adding width and height to destination x and y, as x and y is top left corner of sprite.
+	if ((destX+location.w > global::SCREEN_WIDTH) || (destX < 0))
+	{
+		return;
+	}
+	if ((destY+location.h > global::SCREEN_HEIGHT) || (destY < 0))
+	{
+		return;
+	}
+
 	//Update the collision box to match the new destination
 	collisionBox.getCollider().x = destX;
 	collisionBox.getCollider().y = destY;
-
 	
 	//Check collision with each other active object
 	for each (Object* object in activeObjects)

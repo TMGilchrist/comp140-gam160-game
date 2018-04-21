@@ -31,35 +31,43 @@ void PlayerController::control(Character* player, InputManager &input, float del
 		//Call &&player->weapon->fire();
 	}
 	*/
+	bool connected = false;
 
-	
-
-	controller.getData();
-
-	//std::cout << controller.getX() << std::endl;
-	//std::cout << controller.getY() << std::endl;
-	//std::cout << controller.getZ() << std::endl;
-	//std::cout << std::endl;
-
-	
-	if (controller.getX() > 3) 
+	if (connected) 
 	{
-		//player->move(deltaTime, player->getXSpeed(), 0, activeObjects);
+		controller.getData();
+
+		std::cout << controller.getX() << std::endl;
+		std::cout << controller.getY() << std::endl;
+		std::cout << controller.getZ() << std::endl;
+		std::cout << std::endl;
+
+
+		//left
+		if (controller.getX() > 0)
+		{
+			player->move(deltaTime, player->getXSpeed(), 0, activeObjects);
+		}
+
+		//Right
+		else if (controller.getX() < -0)
+		{
+			player->move(deltaTime, player->getXSpeed(), 0, activeObjects);
+		}
+
+		//Down
+		if (controller.getZ() < -3)
+		{
+			player->move(deltaTime, 0, player->getYSpeed(), activeObjects);
+		}
+
+		//Up
+		if (controller.getZ() > -1)
+		{
+			player->move(deltaTime, 0, -player->getYSpeed(), activeObjects);
+		}
 	}
 
-	else if (controller.getX() < -3)
-	{
-		//player->move(deltaTime, -player->getXSpeed(), 0, activeObjects);
-	}
 
-	if (controller.getZ() < -3) 
-	{
-		player->move(deltaTime, 0, player->getYSpeed(), activeObjects);
-	}
-
-	if (controller.getZ() > -1)
-	{
-		player->move(deltaTime, 0, -player->getYSpeed(), activeObjects);
-	}
 
 }

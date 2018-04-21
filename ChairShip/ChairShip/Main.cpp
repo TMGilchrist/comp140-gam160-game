@@ -9,6 +9,7 @@
 #include "Character.h"
 #include "SerialInterface.h"
 #include "PlayerController.h"
+#include "globals.h"
 #include <vector>
 
 
@@ -16,8 +17,8 @@ int initaliseSDL();
 void drawObjects();
 
 //Screen dimensions
-const int SCREEN_HEIGHT = 600;
-const int SCREEN_WIDTH = 400;
+//const int SCREEN_HEIGHT = 600;
+//const int SCREEN_WIDTH = 400;
 
 //Game loop runs while true
 bool gameRunning = true;
@@ -67,6 +68,7 @@ int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they
 
 	//Instantiate test "enemy" character
 	Character* enemyTest = new Character(10, 100, 100, renderer, "../Resources/Sprites/ShipTemp.png", 67, 67);
+	enemyTest->setLocation(100, 100);
 	activeObjects.push_back(enemyTest);
 
 
@@ -177,7 +179,7 @@ int initaliseSDL()
 	}
 
 	//Initalise the main window
-	mainWindow = SDL_CreateWindow("Main Screen", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_HEIGHT, SCREEN_WIDTH, SDL_WINDOW_SHOWN);
+	mainWindow = SDL_CreateWindow("Main Screen", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, global::SCREEN_WIDTH, global::SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 	if (mainWindow == nullptr)
 	{
 		std::cout << "Cannot create window " << SDL_GetError() << std::endl;

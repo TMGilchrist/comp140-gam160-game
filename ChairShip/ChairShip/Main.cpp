@@ -35,7 +35,9 @@ int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they
 {
 	//Initalise InputManager
 	InputManager input = InputManager();
-	//PlayerController controller = PlayerController();
+
+	//Initalise PlayerController (containing the serialInterface)
+	PlayerController controller = PlayerController();
 
 	//Initialise times
 	float lastTime = 0;
@@ -67,14 +69,6 @@ int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they
 	Character* enemyTest = new Character(10, 100, 100, renderer, "../Resources/Sprites/ShipTemp.png", 67, 67);
 	activeObjects.push_back(enemyTest);
 
-
-	//SerialInterface accelerometer = SerialInterface();
-	SerialInterface* accelerometer = new SerialInterface();
-	accelerometer->getData();
-	std::cout << accelerometer->getX() << std::endl;
-	std::cout << accelerometer->getY() << std::endl;
-	std::cout << accelerometer->getZ() << std::endl;
-	
 
 	//Current sdl event
 	SDL_Event event;
@@ -148,14 +142,9 @@ int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they
 		{
 			//Call shipTest->weapon->fire();
 		}
+	
 
-		//controller.getController().getData();
-		/*std::cout << controller.getController().getX() << std::endl;
-		std::cout << controller.getController().getY() << std::endl;
-		std::cout << controller.getController().getZ() << std::endl;
-		*/
-
-		//controller.control(shipTest, input, deltaTime, activeObjects);
+		controller.control(shipTest, input, deltaTime, activeObjects);
 
 		//std::cout << deltaTime << std::endl;
 

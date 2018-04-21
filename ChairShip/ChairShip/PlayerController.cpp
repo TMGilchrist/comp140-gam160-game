@@ -31,7 +31,7 @@ void PlayerController::control(Character* player, InputManager &input, float del
 		//Call &&player->weapon->fire();
 	}
 	*/
-	bool connected = false;
+	bool connected = true; //This should be changed later to be if the serial port is connected
 
 	if (connected) 
 	{
@@ -44,13 +44,13 @@ void PlayerController::control(Character* player, InputManager &input, float del
 
 
 		//left
-		if (controller.getX() > 0)
+		if (controller.getY() > 0.3)
 		{
-			player->move(deltaTime, player->getXSpeed(), 0, activeObjects);
+			player->move(deltaTime, -player->getXSpeed(), 0, activeObjects);
 		}
 
 		//Right
-		else if (controller.getX() < -0)
+		else if (controller.getY() < -0.3)
 		{
 			player->move(deltaTime, player->getXSpeed(), 0, activeObjects);
 		}

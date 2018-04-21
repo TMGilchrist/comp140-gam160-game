@@ -121,6 +121,7 @@ void Object::move(float deltaTime, float xVelocity, float yVelocity, std::vector
 
 }
 
+//Unused currently
 int Object::checkCollision(std::vector<Object*> activeObjects)
 {
 	//0 is no collision, 1 is solid collision, 2 is non-solid collision

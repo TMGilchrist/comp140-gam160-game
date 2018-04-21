@@ -15,7 +15,7 @@ SerialInterface::SerialInterface()
 
 		try
 		{
-			mySerial = new serial::Serial(port, 9600, serial::Timeout::simpleTimeout(250)); //maybe change 9200 to 115200?
+			mySerial = new serial::Serial(port, 9600, serial::Timeout::simpleTimeout(250)); //maybe change 9600 to 115200?
 
 			if (mySerial->isOpen())
 			{
@@ -60,6 +60,10 @@ void SerialInterface::getData()
 		x = std::stof(readings[0]);
 		y = std::stof(readings[1]);
 		z = std::stof(readings[2]);
+
+		if (result != "") 
+		{
+		}
 	}
 }
 

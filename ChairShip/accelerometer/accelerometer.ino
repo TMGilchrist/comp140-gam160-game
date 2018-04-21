@@ -51,14 +51,6 @@ void setup(void)
 
 void loop() 
 {
-  /*
-  lis.read();      // get X Y and Z data at once
-  // Then print out the raw data
-  Serial.print("X:  "); Serial.print(lis.x); 
-  Serial.print("  \tY:  "); Serial.print(lis.y); 
-  Serial.print("  \tZ:  "); Serial.print(lis.z); 
-*/
-
   /* Or....get a new sensor event, normalized */ 
   sensors_event_t event; 
   lis.getEvent(&event);
@@ -73,8 +65,7 @@ void loop()
         Serial.print(event.acceleration.x); Serial.print(";");
         Serial.print(event.acceleration.y); Serial.print(";");
         Serial.print(event.acceleration.z); 
-      }
-    
+      }    
   }
 
 }

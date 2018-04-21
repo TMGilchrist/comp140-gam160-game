@@ -32,6 +32,11 @@ public:
 		return z;
 	}
 
+	bool getConnected() 
+	{
+		return connected;
+	}
+
 private:
 	//If the serial interface is connected
 	bool connected = false;

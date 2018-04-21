@@ -8,6 +8,7 @@
 #include "InputManager.h"
 #include "Character.h"
 #include "SerialInterface.h"
+#include "PlayerController.h"
 #include <vector>
 
 
@@ -34,6 +35,7 @@ int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they
 {
 	//Initalise InputManager
 	InputManager input = InputManager();
+	//PlayerController controller = PlayerController();
 
 	//Initialise times
 	float lastTime = 0;
@@ -72,7 +74,7 @@ int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they
 	std::cout << accelerometer->getX() << std::endl;
 	std::cout << accelerometer->getY() << std::endl;
 	std::cout << accelerometer->getZ() << std::endl;
-
+	
 
 	//Current sdl event
 	SDL_Event event;
@@ -120,25 +122,26 @@ int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they
 
 		}
 
+
 		//Check inputs. Could be moved to a seperate function for neatness?
 		if (input.isPressed(SDLK_w))
 		{
-			shipTest->move(deltaTime, 0, -enemyTest->getYSpeed(), activeObjects);
+			shipTest->move(deltaTime, 0, -shipTest->getYSpeed(), activeObjects);
 		}
 
 		if (input.isPressed(SDLK_a))
 		{
-			shipTest->move(deltaTime, -enemyTest->getXSpeed(), 0, activeObjects);
+			shipTest->move(deltaTime, -shipTest->getXSpeed(), 0, activeObjects);
 		}
 
 		if (input.isPressed(SDLK_s))
 		{
-			shipTest->move(deltaTime, 0, enemyTest->getYSpeed(), activeObjects);
+			shipTest->move(deltaTime, 0, shipTest->getYSpeed(), activeObjects);
 		}
 
 		if (input.isPressed(SDLK_d))
 		{
-			shipTest->move(deltaTime, enemyTest->getXSpeed(), 0, activeObjects);
+			shipTest->move(deltaTime, shipTest->getXSpeed(), 0, activeObjects);
 		}
 
 		if (input.isPressed(SDLK_SPACE))
@@ -146,6 +149,13 @@ int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they
 			//Call shipTest->weapon->fire();
 		}
 
+		//controller.getController().getData();
+		/*std::cout << controller.getController().getX() << std::endl;
+		std::cout << controller.getController().getY() << std::endl;
+		std::cout << controller.getController().getZ() << std::endl;
+		*/
+
+		//controller.control(shipTest, input, deltaTime, activeObjects);
 
 		//std::cout << deltaTime << std::endl;
 

@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 	PlayerController controller = PlayerController();
 
 	//Initalise enemy manager
-	EnemyManager enemies = EnemyManager(renderer);
+	//EnemyManager enemies = EnemyManager(renderer);
 
 
 	//Create new level and draw background. This is temp. Will be replaced.
@@ -66,19 +66,20 @@ int main(int argc, char *argv[])
 	shipTest->setLocation(200, 300);
 
 	//Weapon testing. Not working yet.
-	shipTest->initaliseWeapon(1, 200, 1, renderer, "../Resources/Sprites/ProjectileTemp.png", 10, 10);
+	shipTest->initaliseWeapon(1, 200, 500, renderer, "../Resources/Sprites/ProjectileTemp.png", 10, 10);
 
-	/*
+	
 	//Instantiate test "enemy" character
-	Character* enemyTest = new Character(10, 100, 100, renderer, "../Resources/Sprites/ShipTemp.png", 67, 67);
-	enemyTest->setLocation(100, 100);
+	/*Character* enemyTest = new Character(3, 50, 50, renderer, "../Resources/Sprites/EnemyShip.png", 67, 67);
+	enemyTest->setLocation(200, 5);
 	activeObjects.push_back(enemyTest);
 	*/
 
+	
 	Enemy* enemyTest = new Enemy(4, 100, 100, renderer, "../Resources/Sprites/EnemyShip.png", 67, 67);
 	enemyTest->setLocation(200, 5);
 	activeObjects.push_back(enemyTest);
-
+	
 
 	//enemies.spawnEnemy(activeObjects);
 
@@ -193,7 +194,6 @@ void drawObjects()
 	for each (Object* object in activeObjects)
 	{
 		object->drawSelf(renderer);
-		//std::cout << activeObjects.size() << std::endl;
 	}
 }
 

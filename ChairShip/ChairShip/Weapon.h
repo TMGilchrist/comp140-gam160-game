@@ -17,7 +17,7 @@ public:
 		updateSpawnPoint(ownerLocation);
 
 		//Check if the weapon is off cooldown
-		if (((SDL_GetTicks() - cooldownStart) / 1000) >= cooldown)
+		if (((SDL_GetTicks() - cooldownStart)) >= cooldown)
 		{
 			//Spawns a new projectile
 			Projectile* newProjectile = new Projectile(spawnLocation, projectileSpeed, damage, activeObjects, projectileSprite, renderer);

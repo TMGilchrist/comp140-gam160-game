@@ -10,10 +10,9 @@ void Character::initaliseWeapon(int initDamage, int projectileSpeed, int initCoo
 
 void Character::update(float deltaTime, std::vector<Object*> &activeObjects)
 {
-	std::cout << health << std::endl;
 	if (health <= 0) 
 	{
-		std::cout << "dead!" << std::endl;
+		//std::cout << "dead!" << std::endl;
 		//removeFromVector()
 
 		setSprite(getBlankSprite());

@@ -8,25 +8,28 @@ public:
 	Projectile(int initSpeed, int initDamage, SDL_Renderer* renderer = NULL, char* imagePath = NULL, float height = 0, float width = 0) : Object(renderer, imagePath, height, width) {};
 
 	//Create projectile with pre-loaded sprite
-	Projectile(SDL_Rect location, int initSpeed, int initDamage, std::vector<Object*> activeObjects, Sprite initSprite, SDL_Renderer* renderer) : Object(initSprite, renderer)
+	Projectile(SDL_Rect location, int projectileSpeed, int initDamage, std::vector<Object*> objects, Sprite initSprite, SDL_Renderer* renderer) : Object(initSprite, renderer)
 	{
 		
 		setSprite(initSprite);
-		speed = initSpeed;
+		velocity = projectileSpeed;
 		damage = initDamage;
+		activeObjects = objects;
 
 		setLocation(location.x, location.y, location.h, location.w);
-
-		drawSelf(renderer); //being overwritten. Needs to be drawn from activeObjects vector
 	};
 
 	~Projectile() {};
 
+	//Update method
+	void update(float deltaTime) override;
+
 private:
 	//Movement speed
-	int speed;
+	int velocity;
 
 	//Damage dealt on collision
 	int damage;
 
+	std::vector<Object*> activeObjects;
 };

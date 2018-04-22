@@ -5,28 +5,34 @@ class Weapon
 {
 public:
 	Weapon() {};
-	Weapon(SDL_Rect location, int initDamage, int initProjectileSpeed, int initCooldown, SDL_Renderer* renderer, char* imagePath, int height, int width);
+	Weapon(SDL_Rect location, int initDamage, int speed, int initCooldown, SDL_Renderer* renderer, char* imagePath, int height, int width);
 	~Weapon() {};
 
 	//Shoot function
-	void fire(std::vector<Object*> &activeObjects)
+	void fire(std::vector<Object*> &activeObjects, SDL_Rect ownerLocation)
 	{
 		//This is obviously horrible. Should add an object pool for projectiles.
 
+		updateSpawnPoint(ownerLocation);
+
 		//Spawns a new projectile
 		Projectile* newProjectile = new Projectile(spawnLocation, projectileSpeed, damage, activeObjects, projectileSprite, renderer);
-		newProjectile->setLocation(300, 300, 10, 10); //for testing. Remove
 		activeObjects.push_back(newProjectile); //Add to the list of active objects. Will have to be removed after it is destroyed!
-		//newProjectile.move(); //Make the projectile travel
+
+		//newProjectile->move(0, -10, activeObjects); //Make the projectile travel
 
 		std::cout << "Weapon fired!" << std::endl; //Currently weapon fires multiple times because of the way keyboard input works!
 
 	};
 
-	void addProjectileToVector(std::vector<Object*> activeObjects, Projectile* projectile)
+	void updateSpawnPoint(SDL_Rect ownerLocation) 
 	{
-		activeObjects.push_back(projectile);
+		//Update the projectile spawn point
+
+		spawnLocation.x = ownerLocation.x + (ownerLocation.w / 2);
+		spawnLocation.y = ownerLocation.y - 10;
 	}
+
 
 private:
 	//Damage the weapon's projectiles will do
@@ -38,14 +44,13 @@ private:
 	//The interval between shots
 	int cooldown;
 
-	//Projectile projectile;
-
 	//The sprite this weapon's projectiles will use
 	Sprite projectileSprite;
 	
 	//Location to spawn new projectiles
 	SDL_Rect spawnLocation;
 
+	//Renderer
 	SDL_Renderer* renderer;
 
 };

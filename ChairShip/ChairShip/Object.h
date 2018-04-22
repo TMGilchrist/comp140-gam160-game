@@ -37,6 +37,9 @@ public:
 	//TO check collision with other objects. Incomplete.
 	int checkCollision(std::vector<Object*> activeObjects);
 
+	//Dervied classes can override this to provide their update functions.
+	virtual void update(float deltaTime) {};
+
 	//Getters and Setters
 
 	SDL_Rect getLocation()

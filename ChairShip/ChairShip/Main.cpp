@@ -15,6 +15,7 @@
 
 int initaliseSDL();
 void drawObjects();
+void updateObjects(float deltaTime);
 
 //Game loop runs while true
 bool gameRunning = true;
@@ -120,6 +121,7 @@ int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they
 		//Update screen
 		SDL_RenderClear(renderer);
 		mainLevel.drawBackground(renderer);
+		updateObjects(deltaTime);
 		drawObjects();
 		SDL_RenderPresent(renderer);
 	}
@@ -162,6 +164,14 @@ int initaliseSDL()
 	}
 
 	return 0;
+}
+
+void updateObjects(float deltaTime) 
+{
+	for each (Object* object in activeObjects) 
+	{
+		object->update(deltaTime);
+	}
 }
 
 //Render all active objects

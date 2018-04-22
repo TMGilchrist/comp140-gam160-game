@@ -15,9 +15,7 @@ Weapon::Weapon(SDL_Rect location, int initDamage, int speed, int initCooldown, S
 	spawnLocation.h = height;
 	spawnLocation.w = width;
 
-	spawnLocation.x = location.x + (location.w / 2);
-	spawnLocation.y = location.y - 10;
-	//spawnLocation.y -= location.h;
+	updateSpawnPoint(location);
 
 	//Create a sprite for the weapon's projectiles
 	projectileSprite = Sprite(renderer, imagePath, height, width);

@@ -8,7 +8,7 @@ public:
 	Character() {};
 
 	//Add docstring for constructor!
-	Character(int initHealth, float initXSpeed, float initYSpeed, SDL_Renderer* renderer=NULL, char* imagePath=NULL, float height=0, float width=0) : Object(renderer, imagePath, height, width)
+	Character(int initHealth, float initXSpeed, float initYSpeed, SDL_Renderer* renderer=NULL, char* imagePath=NULL, float height=0, float width=0, bool isSolid=true) : Object(renderer, imagePath, height, width, isSolid)
 	{
 		health = initHealth;
 		xSpeed = initXSpeed;

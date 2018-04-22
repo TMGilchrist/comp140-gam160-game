@@ -32,6 +32,8 @@ Object::Object(SDL_Renderer * renderer, char * imagePath, float height, float wi
 
 	collisionBox = CollisionBox(0, 0, height, width, isSolid);
 	collisionManager = CollisionManager();
+
+	isColliderSolid = isSolid;
 }
 
 //Constructor where sprite is already loaded
@@ -65,8 +67,9 @@ void Object::drawSelf(SDL_Renderer * renderer, SDL_Rect * sourceRect)
 //Check collision in new desitination. Move to destination if no collisions are found.
 void Object::move(float deltaTime, float xVelocity, float yVelocity, std::vector<Object*> activeObjects)
 {
-	int isCollided = checkCollision(activeObjects);
-	bool isCollied = false;
+	//int isCollided = checkCollision(activeObjects);
+	bool isCollided = false;
+	//bool 
 
 	//Location the object wants to move to
 	float destX = round(location.x + xVelocity * (deltaTime / 1000));
@@ -98,12 +101,22 @@ void Object::move(float deltaTime, float xVelocity, float yVelocity, std::vector
 				std::cout << "Collision!" << std::endl;
 				isCollided = true;
 
-				//Check for isSolid
-				//Raise event for collided objects
+				//Check that both objects have solid colliders
+				if ((object->getIsColliderSolid() == true) && (isColliderSolid == true)) 
+				{
+					//Reset collision box to original location
+					collisionBox.getCollider().x = location.x;
+					collisionBox.getCollider().y = location.y;
+					break;
+				}
 
-				//Reset collision box to original location
-				collisionBox.getCollider().x = location.x;
-				collisionBox.getCollider().y = location.y;
+				//If the collision is non-solid, update location while still raising collision flag
+				location.x = int(destX);
+				location.y = int(destY);
+
+				collisionBox.getCollider().x = destX;
+				collisionBox.getCollider().y = destY;
+
 				break;
 			}
 		}
@@ -147,8 +160,18 @@ int Object::checkCollision(std::vector<Object*> activeObjects)
 			if (collisionManager.checkCollision(collisionBox.getCollider(), object->collisionBox.getCollider()) == true)
 			{
 				std::cout << "Collision!" << std::endl;
-				//isCollided = true;
-				isCollided = 1;
+				
+				//Check for isSolid
+				if (object->getIsColliderSolid() == true)
+				{
+					//Reset collision box to original location
+					collisionBox.getCollider().x = location.x;
+					collisionBox.getCollider().y = location.y;
+					isCollided = 1;
+					return isCollided;
+				}
+
+				isCollided = 2;
 				return isCollided;
 			}
 		}

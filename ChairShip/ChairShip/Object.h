@@ -47,6 +47,11 @@ public:
 		return location;
 	};
 
+	bool getIsColliderSolid() 
+	{
+		return isColliderSolid;
+	}
+
 	//Chained overload to allow member variables as default values
 	void setLocation(int x, int y) 
 	{
@@ -70,8 +75,8 @@ private:
 	CollisionBox collisionBox;
 	CollisionManager collisionManager;
 
-	//Game objects currently active
-	//std::vector<Object*> activeObjects;
+	//If the object's collider is solid (ie. blocks other objects)
+	bool isColliderSolid;
 
 protected:
 

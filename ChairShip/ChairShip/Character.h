@@ -18,7 +18,12 @@ public:
 	~Character() {};
 
 	//Change health by an amount
-	void changehealth(int healthChange)
+	/*void changehealth(int healthChange)
+	{
+		health = health + healthChange;
+	}*/
+
+	void changeHealth(int healthChange) override 
 	{
 		health = health + healthChange;
 	}
@@ -31,6 +36,8 @@ public:
 	{
 		weapon.fire(activeObjects, getLocation());
 	}
+
+	void update(float deltaTime) override;
 
 	//Getters and Setters
 	float getXSpeed()

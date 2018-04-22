@@ -37,13 +37,31 @@ public:
 	//TO check collision with other objects. Incomplete.
 	int checkCollision(std::vector<Object*> activeObjects);
 
+	void addToVector(std::vector<Object*> &activeObjects)
+	{
+		vectorIndex = activeObjects.size();
+		activeObjects.push_back(this);
+	}
+
+	void removeFromVector(std::vector<Object*> &activeObjects)
+	{
+		activeObjects.erase(activeObjects.begin()+vectorIndex);
+	}
+
+
+	//Virtual functions to be overriden
+
 	//Dervied classes can override this to provide their update functions.
 	virtual void update(float deltaTime) {};
 
+	//What happens when an object encounters a collision. Overriden by dervied classes.
 	virtual void onCollide(Object* collidedWith) {};
 
-	//Getters and Setters
+	//Workaround. Not sure if it should be done this way.
+	virtual void changeHealth(int healthChange) {};
 
+
+	//Getters and Setters
 	SDL_Rect getLocation()
 	{
 		return location;
@@ -53,6 +71,12 @@ public:
 	{
 		return isColliderSolid;
 	}
+
+	int getVectorIndex()
+	{
+		return vectorIndex;
+	}
+
 
 	//Chained overload to allow member variables as default values
 	void setLocation(int x, int y) 
@@ -65,6 +89,11 @@ public:
 	{
 		sprite = newSprite;
 	};
+
+	void setVectorIndex(int newVectorIndex) 
+	{
+		vectorIndex = newVectorIndex;
+	}
 
 private:
 	//The object's sprite component
@@ -79,6 +108,9 @@ private:
 
 	//If the object's collider is solid (ie. blocks other objects)
 	bool isColliderSolid;
+
+	//Location of an object in the activeObjects vector
+	int vectorIndex;
 
 protected:
 

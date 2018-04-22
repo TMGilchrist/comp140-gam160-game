@@ -7,3 +7,12 @@ void Character::initaliseWeapon(int initDamage, int projectileSpeed, int initCoo
 	//weaponLocation.y -= weaponLocation.h;
 	weapon = Weapon(getLocation(), initDamage, projectileSpeed, initCooldown, renderer, imagePath, height, width);
 }
+
+void Character::update(float deltaTime)
+{
+	if (health <= 0) 
+	{
+		std::cout << "dead!" << std::endl;
+		//removeFromVector()
+	}
+}

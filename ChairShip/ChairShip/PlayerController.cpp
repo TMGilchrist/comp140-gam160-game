@@ -5,7 +5,7 @@
 void PlayerController::control(Character* player, InputManager &input, float deltaTime, std::vector<Object*> &activeObjects)
 {	
 	//Disable accelerometer input for testing 
-	bool manualOverride = true; 
+	bool manualOverride = false; 
 
 	//std::cout << "control!" << std::endl;
 
@@ -79,12 +79,16 @@ void PlayerController::control(Character* player, InputManager &input, float del
 			player->move(deltaTime, player->getXSpeed(), 0, activeObjects);
 		}
 
-		//This will have to be added to controller input as well!
+		/*//This will have to be added to controller input as well!
 		if (input.isPressed(SDLK_SPACE))
 		{
 			player->shootWeapon(activeObjects);
-		}
+		}*/
 	}
 
-
+	//This will have to be added to controller input as well!
+	if (input.isPressed(SDLK_SPACE))
+	{
+		player->shootWeapon(activeObjects);
+	}
 }

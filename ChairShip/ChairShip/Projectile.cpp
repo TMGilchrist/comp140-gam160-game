@@ -9,6 +9,13 @@ void Projectile::update(float deltaTime)
 
 void Projectile::onCollide(Object * collidedWith)
 {
-	//std::cout << "Collisions happening!" << std::endl;
-	//collidedWith;
+	if (isActive) 
+	{
+		std::cout << "Collisions happening!" << std::endl;
+		std::cout << damage << std::endl;
+		collidedWith->changeHealth(-damage);
+		removeFromVector(activeObjects);
+  		isActive = false;
+	}
+
 }

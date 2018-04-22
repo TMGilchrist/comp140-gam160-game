@@ -11,7 +11,6 @@ public:
 	Object() {};
 
 	//Constructor: passed renderer and the file path for the object sprite.
-	Object(SDL_Renderer* renderer, char* imagePath, int height, int width);
 	Object(SDL_Renderer* renderer, char* imagePath, float height, float width, bool isSolid);
 
 	//Constructor for creating object with ready made sprite
@@ -77,6 +76,10 @@ public:
 		return vectorIndex;
 	}
 
+	Sprite getBlankSprite() 
+	{
+		return blankSprite;
+	}
 
 	//Chained overload to allow member variables as default values
 	void setLocation(int x, int y) 
@@ -95,9 +98,15 @@ public:
 		vectorIndex = newVectorIndex;
 	}
 
+	void setIsColliderSolid(bool isSolid) 
+	{
+		isColliderSolid = isSolid;
+	}
+
 private:
 	//The object's sprite component
 	Sprite sprite;
+	Sprite blankSprite;
 
 	//Object's location as SDL_Rect
 	SDL_Rect location;

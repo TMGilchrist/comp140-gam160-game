@@ -29,25 +29,25 @@ void PlayerController::control(Character* player, InputManager &input, float del
 		*/
 																	 
 		//Move left
-		if (controller.getY() > 0.3)
+		if (controller.getY() < -1.5) //> 0.3
 		{
 			player->move(deltaTime, -player->getXSpeed(), 0, activeObjects);
 		}
 
 		//Move right
-		else if (controller.getY() < -0.3)
+		else if (controller.getY() > 0.5) //< -0.3
 		{
 			player->move(deltaTime, player->getXSpeed(), 0, activeObjects);
 		}
 
 		//Move down
-		if (controller.getZ() < -3)
+		if (controller.getZ() > 3) // < -3
 		{
 			player->move(deltaTime, 0, player->getYSpeed(), activeObjects);
 		}
 
 		//Move up
-		if (controller.getZ() > -1)
+		if (controller.getZ() < 2) // > -1
 		{
 			player->move(deltaTime, 0, -player->getYSpeed(), activeObjects);
 		}

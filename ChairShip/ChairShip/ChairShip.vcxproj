@@ -156,6 +156,7 @@
     <ClInclude Include="CollisionBox.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="globals.h" />
     <ClInclude Include="InputManager.h" />
@@ -177,6 +178,7 @@
     <ClCompile Include="CollisionBox.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Level.cpp" />

@@ -9,6 +9,8 @@
 #include "Character.h"
 #include "SerialInterface.h"
 #include "PlayerController.h"
+#include "EnemyManager.h"
+#include "Enemy.h" //Should be removed if EnemyManger if fixed
 #include "globals.h"
 #include <vector>
 
@@ -29,14 +31,8 @@ SDL_Window* mainWindow = nullptr;
 //Vector of the active game objects.
 std::vector<Object*> activeObjects;
 
-int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they need to be here or in initaliseSDL.
+int main(int argc, char *argv[])
 {
-	//Initalise InputManager
-	InputManager input = InputManager();
-
-	//Initalise PlayerController (containing the serialInterface)
-	PlayerController controller = PlayerController();
-
 	//Initialise times
 	float lastTime = 0;
 	float tickTime = 0;
@@ -49,6 +45,16 @@ int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they
 		return -1;
 	}
 
+	//Initalise InputManager
+	InputManager input = InputManager();
+
+	//Initalise PlayerController (containing the serialInterface)
+	PlayerController controller = PlayerController();
+
+	//Initalise enemy manager
+	EnemyManager enemies = EnemyManager(renderer);
+
+
 	//Create new level and draw background. This is temp. Will be replaced.
 	Level mainLevel = Level(renderer, "../Resources/Sprites/BackgroundTemp.bmp");
 
@@ -57,17 +63,24 @@ int main(int argc, char *argv[]) //find out wtf these arguments *do* and if they
 	activeObjects.push_back(shipTest);
 
 	//Move player to center of screen
-	shipTest->setLocation(200, 200);
+	shipTest->setLocation(200, 300);
 
 	//Weapon testing. Not working yet.
 	shipTest->initaliseWeapon(1, 200, 1, renderer, "../Resources/Sprites/ProjectileTemp.png", 10, 10);
 
-
+	/*
 	//Instantiate test "enemy" character
 	Character* enemyTest = new Character(10, 100, 100, renderer, "../Resources/Sprites/ShipTemp.png", 67, 67);
 	enemyTest->setLocation(100, 100);
 	activeObjects.push_back(enemyTest);
+	*/
 
+	Enemy* enemyTest = new Enemy(4, 100, 100, renderer, "../Resources/Sprites/EnemyShip.png", 67, 67);
+	enemyTest->setLocation(200, 5);
+	activeObjects.push_back(enemyTest);
+
+
+	//enemies.spawnEnemy(activeObjects);
 
 	//Current sdl event
 	SDL_Event event;

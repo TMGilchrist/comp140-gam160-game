@@ -15,13 +15,15 @@ public:
 		ySpeed = initYSpeed;
 	}
 
-	~Character() {};
-
-	//Change health by an amount
-	/*void changehealth(int healthChange)
+	//Constructor with preloaded sprite
+	Character(int initHealth, float initXSpeed, float initYSpeed, Sprite initSprite, SDL_Renderer* renderer=NULL) : Object(initSprite, renderer)
 	{
-		health = health + healthChange;
-	}*/
+		health = initHealth;
+		xSpeed = initXSpeed;
+		ySpeed = initYSpeed;
+	}
+
+	~Character() {};
 
 	void changeHealth(int healthChange) override 
 	{

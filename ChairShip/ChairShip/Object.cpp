@@ -5,25 +5,12 @@
 #include <vector>
 #include <cmath>
 
-//Constructor (should probably add ability to customise collision box at some point)
-Object::Object(SDL_Renderer * renderer, char* imagePath, int height, int width)
-{
-	sprite = Sprite(renderer, imagePath, height, width);
-
-	location.x = 0;
-	location.y = 0;
-	location.h = height;
-	location.w = width;
-
-	collisionBox = CollisionBox(0, 0, height, width, false);
-
-	collisionManager = CollisionManager();
-}
 
 //Constructor specifying if collisionBox is solid (kinda redundant...could just be true?)
 Object::Object(SDL_Renderer * renderer, char * imagePath, float height, float width, bool isSolid)
 {
 	sprite = Sprite(renderer, imagePath, height, width);
+	blankSprite = Sprite(renderer, "../Resources/Sprites/blankSprite.png", 67, 67);
 
 	location.x = 0;
 	location.y = 0;
@@ -40,6 +27,7 @@ Object::Object(SDL_Renderer * renderer, char * imagePath, float height, float wi
 Object::Object(Sprite initSprite, SDL_Renderer* renderer)
 {
 	sprite = initSprite;
+	blankSprite = Sprite(renderer, "../Resources/Sprites/blankSprite.png", 67, 67);
 
 	location.x = 0;
 	location.y = 0;

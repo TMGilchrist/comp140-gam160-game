@@ -11,7 +11,7 @@ public:
 	Object() {};
 
 	//Constructor: passed renderer and the file path for the object sprite.
-	Object(SDL_Renderer* renderer, char* imagePath, int height, int width);
+	Object(SDL_Renderer* renderer, char* imagePath, int height, int width, std::vector<Object*> &objects);
 	Object(SDL_Renderer* renderer, char* imagePath, float height, float width, bool isSolid);
 
 	//Constructor for creating object with ready made sprite
@@ -66,6 +66,9 @@ private:
 	//Collision bounds of the object
 	CollisionBox collisionBox;
 	CollisionManager collisionManager;
+
+	//Game objects currently active
+	std::vector<Object*> activeObjects;
 
 protected:
 

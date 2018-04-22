@@ -2,7 +2,7 @@
 #include "PlayerController.h"
 
 
-void PlayerController::control(Character* player, InputManager &input, float deltaTime, std::vector<Object*> activeObjects)
+void PlayerController::control(Character* player, InputManager &input, float deltaTime, std::vector<Object*> &activeObjects)
 {	
 	//Disable accelerometer input for testing 
 	bool manualOverride = true; 
@@ -13,31 +13,40 @@ void PlayerController::control(Character* player, InputManager &input, float del
 		//Update accelerometer values
 		controller.getData();
 
+		//Debug printing
 		std::cout << controller.getX() << std::endl;
 		std::cout << controller.getY() << std::endl;
 		std::cout << controller.getZ() << std::endl;
 		std::cout << std::endl;
 
 
-		//Left
+		/*
+		Movement based on accelerometer readings. 
+
+		Important to note: 
+		Accelerometer Y-axis is used to calculate player's x movement (side to side).
+		Accelerometer Z-axis used to calculate player's y movement (up and down).															
+		*/
+																	 
+		//Move left
 		if (controller.getY() > 0.3)
 		{
 			player->move(deltaTime, -player->getXSpeed(), 0, activeObjects);
 		}
 
-		//Right
+		//Move right
 		else if (controller.getY() < -0.3)
 		{
 			player->move(deltaTime, player->getXSpeed(), 0, activeObjects);
 		}
 
-		//Down
+		//Move down
 		if (controller.getZ() < -3)
 		{
 			player->move(deltaTime, 0, player->getYSpeed(), activeObjects);
 		}
 
-		//Up
+		//Move up
 		if (controller.getZ() > -1)
 		{
 			player->move(deltaTime, 0, -player->getYSpeed(), activeObjects);
@@ -70,7 +79,7 @@ void PlayerController::control(Character* player, InputManager &input, float del
 
 		if (input.isPressed(SDLK_SPACE))
 		{
-			//Call shipTest->weapon->fire();
+			player->shootWeapon(activeObjects);
 		}
 	}
 

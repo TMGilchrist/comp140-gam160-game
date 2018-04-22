@@ -25,6 +25,11 @@ public:
 
 	void initaliseWeapon(int initDamage, int initProjectileSpeed, int initCooldown, SDL_Renderer* renderer, char* imagePath, int height, int width);
 
+	void shootWeapon(std::vector<Object*> activeObjects)
+	{
+		weapon.fire(activeObjects);
+	}
+
 	//Getters and Setters
 	float getXSpeed()
 	{

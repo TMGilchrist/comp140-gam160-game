@@ -170,6 +170,7 @@ void drawObjects()
 	for each (Object* object in activeObjects)
 	{
 		object->drawSelf(renderer);
+		std::cout << activeObjects.size() << std::endl;
 	}
 }
 

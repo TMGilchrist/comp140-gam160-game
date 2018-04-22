@@ -61,6 +61,7 @@ void SerialInterface::getData()
 		y = std::stof(readings[1]);
 		z = std::stof(readings[2]);
 
+		//Error checks and such need to be performed here. Also sometimes this just won't read from the controller and requires a reupload.
 		if (result != "") 
 		{
 		}

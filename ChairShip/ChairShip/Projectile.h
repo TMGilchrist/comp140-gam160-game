@@ -17,7 +17,7 @@ public:
 
 		setLocation(location.x, location.y, location.h, location.w);
 
-		drawSelf(renderer);
+		drawSelf(renderer); //being overwritten. Needs to be drawn from activeObjects vector
 	};
 
 	~Projectile() {};

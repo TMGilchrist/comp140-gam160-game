@@ -6,7 +6,7 @@
 #include <cmath>
 
 //Constructor (should probably add ability to customise collision box at some point)
-Object::Object(SDL_Renderer * renderer, char* imagePath, int height, int width, std::vector<Object*> &Objects)
+Object::Object(SDL_Renderer * renderer, char* imagePath, int height, int width)
 {
 	sprite = Sprite(renderer, imagePath, height, width);
 
@@ -18,8 +18,6 @@ Object::Object(SDL_Renderer * renderer, char* imagePath, int height, int width, 
 	collisionBox = CollisionBox(0, 0, height, width, false);
 
 	collisionManager = CollisionManager();
-
-	activeObjects = objects;
 }
 
 //Constructor specifying if collisionBox is solid (kinda redundant...could just be true?)

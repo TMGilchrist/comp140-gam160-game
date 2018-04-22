@@ -77,6 +77,7 @@ void PlayerController::control(Character* player, InputManager &input, float del
 			player->move(deltaTime, player->getXSpeed(), 0, activeObjects);
 		}
 
+		//This will have to be added to controller input as well!
 		if (input.isPressed(SDLK_SPACE))
 		{
 			player->shootWeapon(activeObjects);

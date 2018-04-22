@@ -11,7 +11,7 @@ public:
 	Object() {};
 
 	//Constructor: passed renderer and the file path for the object sprite.
-	Object(SDL_Renderer* renderer, char* imagePath, int height, int width, std::vector<Object*> &objects);
+	Object(SDL_Renderer* renderer, char* imagePath, int height, int width);
 	Object(SDL_Renderer* renderer, char* imagePath, float height, float width, bool isSolid);
 
 	//Constructor for creating object with ready made sprite
@@ -32,7 +32,7 @@ public:
 		Updates the SDL_rect that represents the objects
 		location on the screen. Called by drawing funtions.
 	*/
-	void move(float deltaTime, float xVelocity, float yVelocity, std::vector<Object*> objects);
+	void move(float deltaTime, float xVelocity, float yVelocity, std::vector<Object*> activeObjects);
 	
 	//TO check collision with other objects. Incomplete.
 	int checkCollision(std::vector<Object*> activeObjects);
@@ -68,7 +68,7 @@ private:
 	CollisionManager collisionManager;
 
 	//Game objects currently active
-	std::vector<Object*> activeObjects;
+	//std::vector<Object*> activeObjects;
 
 protected:
 

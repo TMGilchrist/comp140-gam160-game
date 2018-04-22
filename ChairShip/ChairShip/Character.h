@@ -23,9 +23,11 @@ public:
 		health = health + healthChange;
 	}
 
+	//Setup a weapon for the character
 	void initaliseWeapon(int initDamage, int initProjectileSpeed, int initCooldown, SDL_Renderer* renderer, char* imagePath, int height, int width);
 
-	void shootWeapon(std::vector<Object*> activeObjects)
+	//Shoots the character's weapon
+	void shootWeapon(std::vector<Object*> &activeObjects)
 	{
 		weapon.fire(activeObjects);
 	}

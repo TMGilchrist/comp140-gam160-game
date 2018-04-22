@@ -9,8 +9,6 @@ Weapon::Weapon(SDL_Rect location, int initDamage, int initProjectileSpeed, int i
 	renderer = initRenderer;
 	spawnLocation = location;
 
+	//Create a sprite for the weapon's projectiles
 	projectileSprite = Sprite(renderer, imagePath, height, width);
-
-	//Initialise projectile
-	//projectile = Projectile(spawnLocation, projectileSpeed, initDamage, projectileSprite, renderer);
 }

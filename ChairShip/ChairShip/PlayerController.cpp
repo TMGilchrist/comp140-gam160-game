@@ -7,6 +7,8 @@ void PlayerController::control(Character* player, InputManager &input, float del
 	//Disable accelerometer input for testing 
 	bool manualOverride = true; 
 
+	//std::cout << "control!" << std::endl;
+
 	//Use controller input
 	if (controller.getConnected() && manualOverride != true) 
 	{

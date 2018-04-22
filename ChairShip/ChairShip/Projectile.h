@@ -22,6 +22,7 @@ public:
 
 	//Update method
 	void update(float deltaTime) override;
+	void onCollide(Object* collidedWith) override;
 
 private:
 	//Movement speed

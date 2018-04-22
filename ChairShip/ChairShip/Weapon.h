@@ -13,11 +13,18 @@ public:
 	{
 		//This is obviously horrible. Should add an object pool for projectiles.
 
+		//Get new spawn point
 		updateSpawnPoint(ownerLocation);
 
-		//Spawns a new projectile
-		Projectile* newProjectile = new Projectile(spawnLocation, projectileSpeed, damage, activeObjects, projectileSprite, renderer);
-		activeObjects.push_back(newProjectile); //Add to the list of active objects. Will have to be removed after it is destroyed!
+		//Check if the weapon is off cooldown
+		if (((SDL_GetTicks() - cooldownStart) / 1000) >= cooldown)
+		{
+			//Spawns a new projectile
+			Projectile* newProjectile = new Projectile(spawnLocation, projectileSpeed, damage, activeObjects, projectileSprite, renderer);
+			activeObjects.push_back(newProjectile); //Add to the list of active objects. Will have to be removed after it is destroyed!
+
+			cooldownStart = SDL_GetTicks();
+		}		
 	};
 
 	void updateSpawnPoint(SDL_Rect ownerLocation) 
@@ -38,6 +45,9 @@ private:
 
 	//The interval between shots
 	int cooldown;
+
+	//The start time of a cooldown phase
+	int cooldownStart;
 
 	//The sprite this weapon's projectiles will use
 	Sprite projectileSprite;

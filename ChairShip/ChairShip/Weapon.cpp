@@ -7,6 +7,7 @@ Weapon::Weapon(SDL_Rect location, int initDamage, int speed, int initCooldown, S
 	damage = initDamage;
 	projectileSpeed = speed;
 	cooldown = initCooldown;
+	cooldownStart = 0;
 	renderer = initRenderer;
 
 	//Setup projectile spawn point. NOTE! The y location calculation must change from - to + depending on the direction the character wants to shoot!

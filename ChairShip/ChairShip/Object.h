@@ -40,6 +40,8 @@ public:
 	//Dervied classes can override this to provide their update functions.
 	virtual void update(float deltaTime) {};
 
+	virtual void onCollide(Object* collidedWith) {};
+
 	//Getters and Setters
 
 	SDL_Rect getLocation()

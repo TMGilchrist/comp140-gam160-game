@@ -67,9 +67,7 @@ void Object::drawSelf(SDL_Renderer * renderer, SDL_Rect * sourceRect)
 //Check collision in new desitination. Move to destination if no collisions are found.
 void Object::move(float deltaTime, float xVelocity, float yVelocity, std::vector<Object*> activeObjects)
 {
-	//int isCollided = checkCollision(activeObjects);
 	bool isCollided = false;
-	//bool 
 
 	//Location the object wants to move to
 	float destX = round(location.x + xVelocity * (deltaTime / 1000));
@@ -98,7 +96,7 @@ void Object::move(float deltaTime, float xVelocity, float yVelocity, std::vector
 			//If there are any collisions, break out and set collided flag
 			if (collisionManager.checkCollision(collisionBox.getCollider(), object->collisionBox.getCollider()) == true)
 			{
-				std::cout << "Collision!" << std::endl;
+				//std::cout << "Collision!" << std::endl;
 				isCollided = true;
 
 				//Check that both objects have solid colliders
@@ -107,6 +105,8 @@ void Object::move(float deltaTime, float xVelocity, float yVelocity, std::vector
 					//Reset collision box to original location
 					collisionBox.getCollider().x = location.x;
 					collisionBox.getCollider().y = location.y;
+
+					onCollide(object);
 					break;
 				}
 
@@ -117,19 +117,11 @@ void Object::move(float deltaTime, float xVelocity, float yVelocity, std::vector
 				collisionBox.getCollider().x = destX;
 				collisionBox.getCollider().y = destY;
 
+				onCollide(object);
 				break;
 			}
 		}
 	}
-	
-	
-	/*
-	if (checkCollision(activeObjects) == 1) 
-	{
-		//Reset collision box to original location
-		collisionBox.getCollider().x = location.x;
-		collisionBox.getCollider().y = location.y;
-	}*/
 
 	//If there are no collisions, update object location
 	if (isCollided != true)

@@ -9,7 +9,7 @@ public:
 	EnemyManager(SDL_Renderer* initRenderer);
 	~EnemyManager() {};
 
-	void spawnEnemy(std::vector<Object*> &objects);
+	void spawnEnemy(std::vector<Object*> &objects, int xPos, int yPos);
 
 
 private:

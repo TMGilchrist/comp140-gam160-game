@@ -13,11 +13,10 @@ void Projectile::onCollide(Object * collidedWith)
 	//std::cout << activeObjects.size() << std::endl;
 	if (isActive) 
 	{
-		std::cout << "Collisions happening!" << std::endl;
-		//std::cout << damage << std::endl;
 		collidedWith->changeHealth(-damage);
-		removeFromVector(activeObjects);
+		//removeFromVector(activeObjects); //Not working :c
   		isActive = false;
+		setSprite(getBlankSprite());
 	}
 
 }

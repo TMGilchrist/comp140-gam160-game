@@ -8,12 +8,11 @@ EnemyManager::EnemyManager(SDL_Renderer* initRenderer)
 	renderer = initRenderer;
 }
 
-void EnemyManager::spawnEnemy(std::vector<Object*> &activeObjects)
+void EnemyManager::spawnEnemy(std::vector<Object*> &activeObjects, int xPos, int yPos=0)
 {
-	Enemy newEnemy = Enemy(4, 100, 100, enemySprite, renderer);
-	newEnemy.setLocation(200, 0);
-	newEnemy.addToVector(activeObjects);
-
-	//newEnemy.drawSelf(renderer);
+	Enemy* newEnemy = new Enemy(4, 100, 100, enemySprite, renderer);
+	newEnemy->setLocation(xPos, yPos);
+	activeObjects.push_back(newEnemy);
+	//newEnemy.addToVector(activeObjects);
 
 }

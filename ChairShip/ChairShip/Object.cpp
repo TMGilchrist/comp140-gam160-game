@@ -7,7 +7,7 @@
 
 
 //Constructor specifying if collisionBox is solid (kinda redundant...could just be true?)
-Object::Object(SDL_Renderer * renderer, char * imagePath, float height, float width, bool isSolid)
+Object::Object(SDL_Renderer * renderer, char * imagePath, float height, float width, bool isSolid, bool wallCollision)
 {
 	sprite = Sprite(renderer, imagePath, height, width);
 	blankSprite = Sprite(renderer, "../Resources/Sprites/blankSprite.png", 67, 67);
@@ -21,10 +21,11 @@ Object::Object(SDL_Renderer * renderer, char * imagePath, float height, float wi
 	collisionManager = CollisionManager();
 
 	isColliderSolid = isSolid;
+	collidesWithWalls = wallCollision;
 }
 
 //Constructor where sprite is already loaded
-Object::Object(Sprite initSprite, SDL_Renderer* renderer)
+Object::Object(Sprite initSprite, SDL_Renderer* renderer, bool isSolid, bool wallCollision)
 {
 	sprite = initSprite;
 	blankSprite = Sprite(renderer, "../Resources/Sprites/blankSprite.png", 67, 67);
@@ -36,6 +37,9 @@ Object::Object(Sprite initSprite, SDL_Renderer* renderer)
 
 	collisionBox = CollisionBox(0, 0, location.h, location.w, false);
 	collisionManager = CollisionManager();
+
+	isColliderSolid = isSolid;
+	collidesWithWalls = wallCollision;
 }
 
 //Update location and render sprite
@@ -61,14 +65,17 @@ void Object::move(float deltaTime, float xVelocity, float yVelocity, std::vector
 	float destX = round(location.x + xVelocity * (deltaTime / 1000));
 	float destY = round(location.y + yVelocity *(deltaTime / 1000));
 	
-	//Check for level edges. Adding width and height to destination x and y, as x and y is top left corner of sprite.
-	if ((destX+location.w > global::SCREEN_WIDTH) || (destX < 0))
+	if (collidesWithWalls) 
 	{
-		return;
-	}
-	if ((destY+location.h > global::SCREEN_HEIGHT) || (destY < 0))
-	{
-		return;
+		//Check for level edges. Adding width and height to destination x and y, as x and y is top left corner of sprite.
+		if ((destX + location.w > global::SCREEN_WIDTH) || (destX < 0))
+		{
+			return;
+		}
+		if ((destY + location.h > global::SCREEN_HEIGHT) || (destY < 0))
+		{
+			return;
+		}
 	}
 
 	//Update the collision box to match the new destination

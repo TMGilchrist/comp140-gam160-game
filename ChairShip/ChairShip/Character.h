@@ -8,7 +8,7 @@ public:
 	Character() {};
 
 	//Add docstring for constructor!
-	Character(int initHealth, float initXSpeed, float initYSpeed, SDL_Renderer* renderer=NULL, char* imagePath=NULL, float height=0, float width=0, bool isSolid=true) : Object(renderer, imagePath, height, width, isSolid)
+	Character(int initHealth, float initXSpeed, float initYSpeed, SDL_Renderer* renderer=NULL, char* imagePath=NULL, float height=0, float width=0, bool isSolid=true, bool wallCollision=true) : Object(renderer, imagePath, height, width, isSolid, wallCollision)
 	{
 		health = initHealth;
 		xSpeed = initXSpeed;
@@ -16,7 +16,7 @@ public:
 	}
 
 	//Constructor with preloaded sprite
-	Character(int initHealth, float initXSpeed, float initYSpeed, Sprite initSprite, SDL_Renderer* renderer=NULL) : Object(initSprite, renderer)
+	Character(int initHealth, float initXSpeed, float initYSpeed, Sprite initSprite, SDL_Renderer* renderer=NULL, bool isSolid=true, bool wallCollision=true) : Object(initSprite, renderer, isSolid, wallCollision)
 	{
 		health = initHealth;
 		xSpeed = initXSpeed;
@@ -60,7 +60,7 @@ public:
 	{
 		health = newHealth;
 	}
-	void setSpeed(float newSpeed)
+	void setXSpeed(float newSpeed)
 	{
 		xSpeed = newSpeed;
 	}

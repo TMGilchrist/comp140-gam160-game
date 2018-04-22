@@ -11,10 +11,10 @@ public:
 	Object() {};
 
 	//Constructor: passed renderer and the file path for the object sprite.
-	Object(SDL_Renderer* renderer, char* imagePath, float height, float width, bool isSolid);
+	Object(SDL_Renderer* renderer, char* imagePath, float height, float width, bool isSolid, bool wallCollision);
 
 	//Constructor for creating object with ready made sprite
-	Object(Sprite initSprite, SDL_Renderer* renderer);
+	Object(Sprite initSprite, SDL_Renderer* renderer, bool isSolid, bool wallCollision);
 
 	~Object() {};
 
@@ -104,7 +104,7 @@ public:
 	}
 
 private:
-	//The object's sprite component
+	//The object's sprite components
 	Sprite sprite;
 	Sprite blankSprite;
 
@@ -117,6 +117,9 @@ private:
 
 	//If the object's collider is solid (ie. blocks other objects)
 	bool isColliderSolid;
+
+	//If the object collides with the map edges
+	bool collidesWithWalls;
 
 	//Location of an object in the activeObjects vector
 	int vectorIndex;

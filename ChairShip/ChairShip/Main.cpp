@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include "SDL.h"
 #include "Level.h"
-#include "Object.h" //Probably temp, remove later.
+//#include "Object.h" //Probably temp, remove later.
 #include "InputManager.h"
 #include "Character.h"
 #include "SerialInterface.h"
@@ -13,6 +13,7 @@
 #include "Enemy.h" //Should be removed if EnemyManger if fixed
 #include "globals.h"
 #include <vector>
+#include <time.h>
 
 
 int initaliseSDL();
@@ -33,6 +34,15 @@ std::vector<Object*> activeObjects;
 
 int main(int argc, char *argv[])
 {
+	bool inDevelopMode = false;
+
+	//Initalise random seed
+	std::srand(time(NULL));
+
+	//Initalise enemy spawn timings
+	int enemySpawnDelay = 3000;
+	int spawnDelayStart = 0;
+
 	//Initialise times
 	float lastTime = 0;
 	float tickTime = 0;
@@ -52,36 +62,36 @@ int main(int argc, char *argv[])
 	PlayerController controller = PlayerController();
 
 	//Initalise enemy manager
-	//EnemyManager enemies = EnemyManager(renderer);
+	EnemyManager enemies = EnemyManager(renderer);
 
 
 	//Create new level and draw background. This is temp. Will be replaced.
 	Level mainLevel = Level(renderer, "../Resources/Sprites/BackgroundTemp.bmp");
 
 	//Instantiate player character and add to active objects
-	Character* shipTest = new Character(10, 100, 100, renderer, "../Resources/Sprites/ShipTemp.png", 67, 67);
+	Player* shipTest = new Player(10, 200, 200, renderer, "../Resources/Sprites/ShipTemp.png", 67, 67);
 	activeObjects.push_back(shipTest);
 
-	//Move player to center of screen
-	shipTest->setLocation(200, 300);
+	if (inDevelopMode) 
+	{
+		//Move player to center of screen
+		shipTest->setLocation(200, 300);
+	}
 
-	//Weapon testing. Not working yet.
-	shipTest->initaliseWeapon(1, 200, 500, renderer, "../Resources/Sprites/ProjectileTemp.png", 10, 10);
+	else 
+	{
+		//Change player speed for bigger screen size
+		shipTest->setYSpeed(400);
+		shipTest->setXSpeed(300);
 
-	
-	//Instantiate test "enemy" character
-	/*Character* enemyTest = new Character(3, 50, 50, renderer, "../Resources/Sprites/EnemyShip.png", 67, 67);
-	enemyTest->setLocation(200, 5);
-	activeObjects.push_back(enemyTest);
-	*/
+		//Move player to center of screen
+		shipTest->setLocation(960, 540);
+	}
 
-	
-	Enemy* enemyTest = new Enemy(4, 100, 100, renderer, "../Resources/Sprites/EnemyShip.png", 67, 67);
-	enemyTest->setLocation(200, 5);
-	activeObjects.push_back(enemyTest);
-	
+	//Add a weapon to the player
+	shipTest->initaliseWeapon(1, 200, 250, renderer, "../Resources/Sprites/ProjectileTemp.png", 10, 10);
 
-	//enemies.spawnEnemy(activeObjects);
+
 
 	//Current sdl event
 	SDL_Event event;
@@ -132,6 +142,16 @@ int main(int argc, char *argv[])
 		//Check for input
 		controller.control(shipTest, input, deltaTime, activeObjects);
 
+		//Spawn enemies after a delay
+		if (((SDL_GetTicks() - spawnDelayStart)) >= enemySpawnDelay) 
+		{
+			//Spawn new enemy in a random location along the top of the screen.
+			enemies.spawnEnemy(activeObjects, rand() % global::SCREEN_WIDTH-80 + 80, 0); //(Screen width - 80) + 80 to make sure the sprites don't get stuck off the screen.
+
+			spawnDelayStart = SDL_GetTicks();
+		}
+
+
 		//Update screen
 		SDL_RenderClear(renderer);
 		mainLevel.drawBackground(renderer);
@@ -180,6 +200,7 @@ int initaliseSDL()
 	return 0;
 }
 
+//Call the update function for all active objects
 void updateObjects(float deltaTime) 
 {
 	for each (Object* object in activeObjects) 

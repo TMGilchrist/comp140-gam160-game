@@ -37,7 +37,7 @@ public:
 		weapon.fire(activeObjects, getLocation());
 	}
 
-	void update(float deltaTime) override;
+	void update(float deltaTime, std::vector<Object*> &activeObjects) override;
 
 	//Getters and Setters
 	float getXSpeed()

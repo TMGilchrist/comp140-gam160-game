@@ -46,25 +46,25 @@ void SerialInterface::getData()
 	if (connected) 
 	{
 		//Write to the monitor to get reading
-		//send("P");
 		mySerial->write("P");
 
 		//Get result from accelerometer
-		std::string result = mySerial->readline();
-		//std::cout << result << std::endl;
+		std::string result = mySerial->readline(); //This line makes everything lag. Not sure why.
 
 		//Split result string into each axis reading
 		std::vector <std::string> readings = splitString(result, ';');
 
+		
 		//Convert each token to float and assign to variable
 		x = std::stof(readings[0]);
 		y = std::stof(readings[1]);
 		z = std::stof(readings[2]);
+		
 
 		//Error checks and such need to be performed here. Also sometimes this just won't read from the controller and requires a reupload.
-		if (result != "") 
-		{
-		}
+		//if (result != "") 
+		//{
+		//}
 	}
 }
 

@@ -65,7 +65,7 @@ void Object::drawSelf(SDL_Renderer * renderer, SDL_Rect * sourceRect)
 
 
 //Check collision in new desitination. Move to destination if no collisions are found.
-void Object::move(float deltaTime, float xVelocity, float yVelocity, std::vector<Object*> activeObjects)
+void Object::move(float deltaTime, float xVelocity, float yVelocity, std::vector<Object*> &activeObjects)
 {
 	bool isCollided = false;
 

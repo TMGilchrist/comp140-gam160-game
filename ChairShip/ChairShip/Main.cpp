@@ -170,7 +170,7 @@ void updateObjects(float deltaTime)
 {
 	for each (Object* object in activeObjects) 
 	{
-		object->update(deltaTime);
+		object->update(deltaTime, activeObjects);
 	}
 }
 

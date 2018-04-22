@@ -6,7 +6,6 @@ class PlayerController
 {
 public:
 	PlayerController() {};
-	PlayerController() {};
 	~PlayerController() {};
 
 	//Convert keyboard or controller inputs into player controls

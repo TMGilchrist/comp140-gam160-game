@@ -22,7 +22,7 @@ public:
 	~Projectile() {};
 
 	//Update method
-	void update(float deltaTime) override;
+	void update(float deltaTime, std::vector<Object*> &activeObjects) override;
 	void onCollide(Object* collidedWith) override;
 
 

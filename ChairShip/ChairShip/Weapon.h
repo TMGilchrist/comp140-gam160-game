@@ -21,9 +21,12 @@ public:
 		{
 			//Spawns a new projectile
 			Projectile* newProjectile = new Projectile(spawnLocation, projectileSpeed, damage, activeObjects, projectileSprite, renderer);
-			//activeObjects.push_back(newProjectile); //Add to the list of active objects. Will have to be removed after it is destroyed!
+
+			//Add new projectile to active objects and flag it as active
 			newProjectile->addToVector(activeObjects);
 			newProjectile->setIsActive(true);
+
+			//Update its reference to activeObjects
 			newProjectile->setActiveObjects(activeObjects);
 
 			cooldownStart = SDL_GetTicks();

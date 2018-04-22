@@ -8,7 +8,7 @@ void Character::initaliseWeapon(int initDamage, int projectileSpeed, int initCoo
 	weapon = Weapon(getLocation(), initDamage, projectileSpeed, initCooldown, renderer, imagePath, height, width);
 }
 
-void Character::update(float deltaTime)
+void Character::update(float deltaTime, std::vector<Object*> &activeObjects)
 {
 	if (health <= 0) 
 	{

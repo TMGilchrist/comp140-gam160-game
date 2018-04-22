@@ -32,7 +32,7 @@ public:
 		Updates the SDL_rect that represents the objects
 		location on the screen. Called by drawing funtions.
 	*/
-	void move(float deltaTime, float xVelocity, float yVelocity, std::vector<Object*> activeObjects);
+	void move(float deltaTime, float xVelocity, float yVelocity, std::vector<Object*> &activeObjects);
 	
 	//TO check collision with other objects. Incomplete.
 	int checkCollision(std::vector<Object*> activeObjects);
@@ -52,7 +52,7 @@ public:
 	//Virtual functions to be overriden
 
 	//Dervied classes can override this to provide their update functions.
-	virtual void update(float deltaTime) {};
+	virtual void update(float deltaTime, std::vector<Object*> &activeObjects) {};
 
 	//What happens when an object encounters a collision. Overriden by dervied classes.
 	virtual void onCollide(Object* collidedWith) {};

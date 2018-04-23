@@ -2,10 +2,10 @@
 #include "PlayerController.h"
 
 
-void PlayerController::control(Character* player, InputManager &input, float deltaTime, std::vector<Object*> &activeObjects)
+void PlayerController::control(Player* player, InputManager &input, float deltaTime, std::vector<Object*> &activeObjects)
 {	
 	//Disable accelerometer input for testing 
-	bool manualOverride = true; 
+	bool manualOverride = false; 
 
 	//Use controller input
 	if (controller.getConnected() && manualOverride != true) 

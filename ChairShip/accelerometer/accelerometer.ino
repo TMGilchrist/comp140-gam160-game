@@ -1,4 +1,4 @@
-// Basic demo for accelerometer readings from Adafruit LIS3DH
+//Code adapted from the Adafruit LIS3DH accelerometer example.
 
 #include <Wire.h>
 #include <SPI.h>
@@ -14,25 +14,12 @@
 
 // software SPI
 Adafruit_LIS3DH lis = Adafruit_LIS3DH(LIS3DH_CS, LIS3DH_MOSI, LIS3DH_MISO, LIS3DH_CLK);
-// hardware SPI
-//Adafruit_LIS3DH lis = Adafruit_LIS3DH(LIS3DH_CS);
-// I2C
-//Adafruit_LIS3DH lis = Adafruit_LIS3DH();
-
-#if defined(ARDUINO_ARCH_SAMD)
-// for Zero, output on USB Serial console, remove line below if using programming port to program the Zero!
-   #define Serial SerialUSB
-#endif
 
 int inByte;
 
 void setup(void) 
 {
-#ifndef ESP8266
-  while (!Serial);     // will pause Zero, Leonardo, etc until serial console opens
-#endif
-
-  Serial.begin(9600);
+  Serial.begin(115200);
   Serial.println("LIS3DH test!");
   
   if (! lis.begin(0x18)) 
@@ -51,7 +38,7 @@ void setup(void)
 
 void loop() 
 {
-  /* Or....get a new sensor event, normalized */ 
+  /* Get a new sensor event, normalized */ 
   sensors_event_t event; 
   lis.getEvent(&event);
 
@@ -64,7 +51,7 @@ void loop()
         /* Display the results (acceleration is measured in m/s^2) */
         Serial.print(event.acceleration.x); Serial.print(";");
         Serial.print(event.acceleration.y); Serial.print(";");
-        Serial.print(event.acceleration.z); 
+        Serial.print(event.acceleration.z); Serial.print(";"); Serial.print("Q");
       }    
   }
 

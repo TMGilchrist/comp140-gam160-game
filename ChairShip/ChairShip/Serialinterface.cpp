@@ -15,7 +15,7 @@ SerialInterface::SerialInterface()
 
 		try
 		{
-			mySerial = new serial::Serial(port, 9600, serial::Timeout::simpleTimeout(250)); //maybe change 9600 to 115200?
+			mySerial = new serial::Serial(port, 115200, serial::Timeout::simpleTimeout(250)); //maybe change 9600 to 115200?
 
 			if (mySerial->isOpen())
 			{
@@ -49,7 +49,7 @@ void SerialInterface::getData()
 		mySerial->write("P");
 
 		//Get result from accelerometer
-		std::string result = mySerial->readline(); //This line makes everything lag. Not sure why.
+		std::string result = mySerial->readline(24, "Q"); //This line makes everything lag. Not sure why.
 
 		//Split result string into each axis reading
 		std::vector <std::string> readings = splitString(result, ';');

@@ -9,7 +9,7 @@ public:
 	~PlayerController() {};
 
 	//Convert keyboard or controller inputs into player controls
-	void control(Character* player, InputManager &input, float deltaTime, std::vector<Object*> &activeObjects); //change character to player type later
+	void control(Player* player, InputManager &input, float deltaTime, std::vector<Object*> &activeObjects); //change character to player type later
 
 	//Getters
 	SerialInterface getController() 

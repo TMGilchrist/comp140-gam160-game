@@ -34,7 +34,7 @@ std::vector<Object*> activeObjects;
 
 int main(int argc, char *argv[])
 {
-	bool inDevelopMode = false;
+	bool inDevelopMode = true;
 
 	//Initalise random seed
 	std::srand(time(NULL));

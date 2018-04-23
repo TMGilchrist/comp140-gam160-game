@@ -28,14 +28,14 @@ public:
 	void drawSelf(SDL_Renderer* renderer, SDL_Rect* sourceRect);
 
 	/**
-		Updates the SDL_rect that represents the objects
-		location on the screen. Called by drawing funtions.
+		Updates the SDL_rect that represents the objects location on the screen. 
 	*/
 	void move(float deltaTime, float xVelocity, float yVelocity, std::vector<Object*> &activeObjects);
 	
 	//TO check collision with other objects. Incomplete.
 	int checkCollision(std::vector<Object*> activeObjects);
 
+	//Broken functions designed to add and remove objects from the activeObjects vector while recording their location in the vector. Not in use currently.
 	void addToVector(std::vector<Object*> &activeObjects)
 	{
 		vectorIndex = activeObjects.size();
@@ -48,15 +48,15 @@ public:
 	}
 
 
-	//Virtual functions to be overriden
+	/*  Virtual functions to be overriden  */
 
-	//Dervied classes can override this to provide their update functions.
+	//Update called every tick
 	virtual void update(float deltaTime, std::vector<Object*> &activeObjects) {};
 
-	//What happens when an object encounters a collision. Overriden by dervied classes.
+	//What happens when an object encounters a collision.
 	virtual void onCollide(Object* collidedWith) {};
 
-	//Workaround. Not sure if it should be done this way.
+	//Slight workaround as I couldnt call character functions from the activeObjects vector. Not sure if it should be done this way.
 	virtual void changeHealth(int healthChange) {};
 
 

@@ -4,6 +4,7 @@
 
 SDL_Texture * Utility::loadTexture(SDL_Renderer * renderer, char * file)
 {
+	//Load a texture from file
 	SDL_Texture* texture = IMG_LoadTexture(renderer, file);
 	return texture;
 }

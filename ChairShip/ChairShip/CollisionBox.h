@@ -13,10 +13,7 @@ public:
 		collider = box.collider;
 	};
 
-	~CollisionBox() 
-	{ 
-		//delete collider; 
-	};
+	~CollisionBox() {};
 
 	//Getters and Setters
 	SDL_Rect& getCollider()

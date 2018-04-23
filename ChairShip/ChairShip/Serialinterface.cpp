@@ -49,22 +49,15 @@ void SerialInterface::getData()
 		mySerial->write("P");
 
 		//Get result from accelerometer
-		std::string result = mySerial->readline(24, "Q"); //This line makes everything lag. Not sure why.
+		std::string result = mySerial->readline(24, "Q"); //Without a specified delimiter (not using \n in arudino output, this line makes everything lag
 
 		//Split result string into each axis reading
 		std::vector <std::string> readings = splitString(result, ';');
-
 		
 		//Convert each token to float and assign to variable
 		x = std::stof(readings[0]);
 		y = std::stof(readings[1]);
 		z = std::stof(readings[2]);
-		
-
-		//Error checks and such need to be performed here. Also sometimes this just won't read from the controller and requires a reupload.
-		//if (result != "") 
-		//{
-		//}
 	}
 }
 

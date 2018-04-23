@@ -17,6 +17,7 @@ public:
 											   : Character(initHealth, initXSpeed, initYSpeed, renderer, imagePath, height, width, isSolid, wallCollision) {};
 	~Enemy() {};
 
+	//Called every tick
 	void update(float deltaTime, std::vector<Object*> &activeObjects) override;
 
 private:

@@ -34,7 +34,7 @@ std::vector<Object*> activeObjects;
 
 int main(int argc, char *argv[])
 {
-	bool inDevelopMode = true;
+	bool inDevelopMode = false;
 
 	//Initalise random seed
 	std::srand(time(NULL));
@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
 	Level mainLevel = Level(renderer, "../Resources/Sprites/BackgroundTemp.bmp");
 
 	//Instantiate player character and add to active objects
-	Player* shipTest = new Player(10, 200, 200, renderer, "../Resources/Sprites/ShipTemp.png", 67, 67);
+	Player* shipTest = new Player(10, 200, 200, renderer, "../Resources/Sprites/PlayerShip.png", 67, 67);
 	activeObjects.push_back(shipTest);
 
 	if (inDevelopMode) 
@@ -89,7 +89,7 @@ int main(int argc, char *argv[])
 	}
 
 	//Add a weapon to the player
-	shipTest->initaliseWeapon(1, 200, 250, renderer, "../Resources/Sprites/ProjectileTemp.png", 10, 10);
+	shipTest->initaliseWeapon(1, 200, 250, renderer, "../Resources/Sprites/Projectile.png", 10, 10);
 
 
 

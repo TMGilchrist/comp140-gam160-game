@@ -42,13 +42,14 @@ Object::Object(Sprite initSprite, SDL_Renderer* renderer, bool isSolid, bool wal
 	collidesWithWalls = wallCollision;
 }
 
-//Update location and render sprite
+//Render sprite
 void Object::drawSelf(SDL_Renderer * renderer)
 {
 	//Add texture to renderer
 	SDL_RenderCopy(renderer, sprite.getTexture(), NULL, &location);
 }
 
+//Render sprite with source rectangle
 void Object::drawSelf(SDL_Renderer * renderer, SDL_Rect * sourceRect)
 {
 	//Add texture to renderer
@@ -65,6 +66,7 @@ void Object::move(float deltaTime, float xVelocity, float yVelocity, std::vector
 	float destX = round(location.x + xVelocity * (deltaTime / 1000));
 	float destY = round(location.y + yVelocity *(deltaTime / 1000));
 	
+	//If the object collides with the walls of the map, check for edge collision.
 	if (collidesWithWalls) 
 	{
 		//Check for level edges. Adding width and height to destination x and y, as x and y is top left corner of sprite.
@@ -88,10 +90,9 @@ void Object::move(float deltaTime, float xVelocity, float yVelocity, std::vector
 		//Make sure object isn't trying to check collision with itself
 		if (object != this) 
 		{
-			//If there are any collisions, break out and set collided flag
+			//If there are any collisions, set collided flag
 			if (collisionManager.checkCollision(collisionBox.getCollider(), object->collisionBox.getCollider()) == true)
 			{
-				//std::cout << "Collision!" << std::endl;
 				isCollided = true;
 
 				//Check that both objects have solid colliders

@@ -9,13 +9,15 @@ public:
 	EnemyManager(SDL_Renderer* initRenderer);
 	~EnemyManager() {};
 
+	//Spawn a new enemy at a location
 	void spawnEnemy(std::vector<Object*> &objects, int xPos, int yPos);
 
 
 private:
-	//The sprite to use for enemy1
+	//The sprite to use for enemy
 	Sprite enemySprite;
 
+	//Renderer
 	SDL_Renderer* renderer;
 
 

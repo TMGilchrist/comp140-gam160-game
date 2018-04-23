@@ -18,6 +18,7 @@ public:
 	}
 
 private:
+	//The serial interface communicating with the arudino controller
 	SerialInterface controller;
 
 };

@@ -7,7 +7,7 @@ class Character : public Object
 public:
 	Character() {};
 
-	//Add docstring for constructor!
+	//Constructo to load sprite from file
 	Character(int initHealth, float initXSpeed, float initYSpeed, SDL_Renderer* renderer=NULL, char* imagePath=NULL, float height=0, float width=0, bool isSolid=true, bool wallCollision=true) : Object(renderer, imagePath, height, width, isSolid, wallCollision)
 	{
 		health = initHealth;
@@ -25,6 +25,7 @@ public:
 
 	~Character() {};
 
+	//Change the character's health
 	void changeHealth(int healthChange) override 
 	{
 		health = health + healthChange;
@@ -39,6 +40,7 @@ public:
 		weapon.fire(activeObjects, getLocation());
 	}
 
+	//Called every tick
 	void update(float deltaTime, std::vector<Object*> &activeObjects) override;
 
 	//Getters and Setters

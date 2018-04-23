@@ -8,13 +8,12 @@ Level::Level()
 
 Level::Level(SDL_Renderer * renderer, char* imagePath)
 {
-	Utility utility;
-	background = utility.loadTexture(renderer, imagePath);
+	//Load in background texture
+	background = IMG_LoadTexture(renderer, imagePath);
 }
 
 Level::~Level()
 {
-	//delete background; FIX THIS??
 }
 
 void Level::drawBackground(SDL_Renderer * renderer)//SDL_Texture* texture)

@@ -11,7 +11,7 @@ public:
 	//Shoot function
 	void fire(std::vector<Object*> &activeObjects, SDL_Rect ownerLocation)
 	{
-		//This is obviously horrible. Should add an object pool for projectiles.
+		//Should add an object pool for projectiles.
 
 		//Get new spawn point
 		updateSpawnPoint(ownerLocation);
@@ -29,14 +29,15 @@ public:
 			//Update its reference to activeObjects
 			newProjectile->setActiveObjects(activeObjects);
 
+			//Start counting cooldown period
 			cooldownStart = SDL_GetTicks();
 		}		
 	};
 
+	//Update the projectile spawn point based on the new location of the weapon's owner.
 	void updateSpawnPoint(SDL_Rect ownerLocation) 
 	{
 		//Update the projectile spawn point
-
 		spawnLocation.x = ownerLocation.x + (ownerLocation.w / 2);
 		spawnLocation.y = ownerLocation.y - 10;
 	}

@@ -6,11 +6,7 @@ class Sprite
 public:
 	Sprite() {};
 	Sprite(SDL_Renderer* renderer, char* filePath, float height, float width);
-	~Sprite()
-	{
-		//Null check needed?
-		//delete texture;
-	};
+	~Sprite() {};
 
 	SDL_Texture* getTexture()
 	{

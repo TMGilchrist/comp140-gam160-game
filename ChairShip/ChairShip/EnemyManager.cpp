@@ -10,7 +10,8 @@ EnemyManager::EnemyManager(SDL_Renderer* initRenderer)
 
 void EnemyManager::spawnEnemy(std::vector<Object*> &activeObjects, int xPos, int yPos=0)
 {
-	Enemy* newEnemy = new Enemy(4, 100, 100, enemySprite, renderer);
+	//Create a new enemy
+	Enemy* newEnemy = new Enemy(4, 100, 50, enemySprite, renderer); //Construction data could be moved to constructor, or better, a function to create template enemies.
 	newEnemy->setLocation(xPos, yPos);
 	activeObjects.push_back(newEnemy);
 	//newEnemy.addToVector(activeObjects);

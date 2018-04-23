@@ -5,6 +5,7 @@ class Projectile : public Object
 {
 public:
 	Projectile() {};
+	//Constructor to load sprite from file
 	Projectile(int initSpeed, int initDamage, SDL_Renderer* renderer = NULL, char* imagePath = NULL, float height = 0, float width = 0, bool isSolid=false, bool wallCollision=false)
 																												 : Object(renderer, imagePath, height, width, isSolid, wallCollision) {};
 
@@ -23,8 +24,10 @@ public:
 
 	~Projectile() {};
 
-	//Update method
+	//Update called every tick.
 	void update(float deltaTime, std::vector<Object*> &activeObjects) override;
+	
+	//Called when colliding with another object.
 	void onCollide(Object* collidedWith) override;
 
 
@@ -48,5 +51,6 @@ private:
 	//If the projectile is active in game
 	bool isActive;
 
+	//Active objects. Probably don't need this here.
 	std::vector<Object*> activeObjects;
 };
